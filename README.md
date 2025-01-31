@@ -11,7 +11,7 @@ Then, let's code 🙂
 You must install [Git](https://git-scm.com/) on your computer, and create an account on [GitHub](https://github.com/) if you do not have one.
 
 Then, you need a repository for you game. You can either wait for us to create one, or
-use [our template on GitHub](https://github.com/gamepark/board-game-template)
+use [our template on GitHub](https://github.com/gamepark/board-mythic-arena)
 to [create a new repository](https://docs.github.com/fr/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
 
 We recommend to use this syntax to name the repository: "name-of-your-game"
@@ -51,9 +51,9 @@ real-time.
 
 Search and replace in **every file**:
 
-- `Game Template` => `Name of your Game`
+- `Mythic Arena` => `Name of your Game`
 - `GameTemplate` => `NameOfYourGame`
-- `game-template` => `name-of-your-game`
+- `mythic-arena` => `name-of-your-game`
 
 ### 3.1 The Material
 
@@ -166,7 +166,7 @@ Then, run:
 ```
 rclone config
 > n (For "New remote)
-name> game-template
+name> mythic-arena
 Storage> s3 (Amazon S3 Compliant Storage Provider)
 provider> Other
 env_auth> false

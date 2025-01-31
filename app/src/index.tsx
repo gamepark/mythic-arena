@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { GameTemplateOptionsSpec } from '@gamepark/game-template/GameTemplateOptions'
-import { GameTemplateRules } from '@gamepark/game-template/GameTemplateRules'
-import { GameTemplateSetup } from '@gamepark/game-template/GameTemplateSetup'
+import { GameTemplateOptionsSpec } from '@gamepark/mythic-arena/GameTemplateOptions'
+import { GameTemplateRules } from '@gamepark/mythic-arena/GameTemplateRules'
+import { GameTemplateSetup } from '@gamepark/mythic-arena/GameTemplateSetup'
 import { GameProvider, setupTranslation } from '@gamepark/react-game'
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
@@ -16,7 +16,7 @@ setupTranslation(translations, { debug: false })
 ReactDOM.render(
   <StrictMode>
     <GameProvider
-      game="game-template"
+      game="mythic-arena"
       Rules={GameTemplateRules}
       optionsSpec={GameTemplateOptionsSpec}
       GameSetup={GameTemplateSetup}
