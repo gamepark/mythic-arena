@@ -14,17 +14,24 @@ export const PlayerPanels = () => {
   return createPortal(
     <>
       {players.map((player, index) =>
-        <StyledPlayerPanel key={player.id} player={player} color={playerColorCode[player.id]} css={panelPosition(index)}/>
+        <StyledPlayerPanel key={player.id} player={player} color={playerColorCode[player.id]} css={[panelPosition, index === 0? leftPlayer: rightPlayer]}/>
       )}
     </>,
     root
   )
 }
-const panelPosition = (index: number) => css`
+const panelPosition = css`
   position: absolute;
-  right: 1em;
-  top: ${8.5 + index * 16}em;
+  top: ${8.5}em;
   width: 28em;
+`
+
+const leftPlayer = css`
+  left: 1em;
+`
+
+const rightPlayer = css`
+  right: 1em;
 `
 
 export const playerColorCode: Record<PlayerColor, string> = {
