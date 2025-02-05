@@ -1,4 +1,6 @@
 export enum LocationType {
   Battlefield = 1,
-  PantheonDeck
+  PantheonDeck,
+  PantheonDiscard,
+  PlayerHand
 }

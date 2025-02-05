@@ -38,6 +38,6 @@ export class MythicArenaSetup extends MaterialGameSetup<PantheonType, MaterialTy
   }
 
   start() {
-    this.startPlayerTurn(RuleId.TheFirstStep, this.players[0])
+    this.startPlayerTurn(RuleId.DrawCard, this.players[0])
   }
 }

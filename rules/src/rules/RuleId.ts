@@ -1,3 +1,11 @@
 export enum RuleId {
-  TheFirstStep = 1
+  DrawCard = 1,
+  SecondChance,
+  PlaceCard,
+  PlayEffect,
+  PlayStrengthToken,
+  BattleResolution,
+  PostBattleEffect,
+  AllegianceScore,
+  EndOfTurn
 }
