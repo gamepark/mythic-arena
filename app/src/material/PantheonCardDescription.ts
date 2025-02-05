@@ -1,5 +1,5 @@
 import { PantheonCard } from '@gamepark/mythic-arena/material/PantheonCard'
-import { PantheonCardType } from '@gamepark/mythic-arena/material/PantheonCardType'
+import { PantheonType } from '@gamepark/mythic-arena/material/PantheonType'
 import { CardDescription } from '@gamepark/react-game'
 import Dionysos from '../images/pantheon/greek/Dionysos.jpg'
 import Asclepios from '../images/pantheon/greek/Asclepios.jpg'
@@ -40,8 +40,8 @@ import Norse from '../images/pantheon/norse/Norse.jpg'
 
 export class PantheonCardDescription extends CardDescription {
   backImages = {
-    [PantheonCardType.Greek]: Greek,
-    [PantheonCardType.Norse]: Norse,
+    [PantheonType.Greek]: Greek,
+    [PantheonType.Norse]: Norse,
   }
 
   images = {

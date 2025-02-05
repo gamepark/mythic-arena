@@ -1,3 +1,3 @@
-export { GameTemplateRules } from './GameTemplateRules'
-export { GameTemplateOptionsSpec } from './GameTemplateOptions'
-export { GameTemplateSetup } from './GameTemplateSetup'
+export { MythicArenaRules } from './MythicArenaRules'
+export { MythicArenaOptionsSpec } from './MythicArenaOptions'
+export { MythicArenaSetup } from './MythicArenaSetup'

@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { PlayerColor } from '@gamepark/mythic-arena/PlayerColor'
 import { StyledPlayerPanel, usePlayers } from '@gamepark/react-game'
 import { createPortal } from 'react-dom'
 
 export const PlayerPanels = () => {
-  const players = usePlayers<PlayerColor>({ sortFromMe: true })
+  const players = usePlayers({ sortFromMe: true })
   const root = document.getElementById('root')
   if (!root) {
     return null
@@ -14,7 +13,7 @@ export const PlayerPanels = () => {
   return createPortal(
     <>
       {players.map((player, index) =>
-        <StyledPlayerPanel key={player.id} player={player} color={playerColorCode[player.id]} css={[panelPosition, index === 0? leftPlayer: rightPlayer]}/>
+        <StyledPlayerPanel key={player.id} player={player} css={[panelPosition, index === 0? leftPlayer: rightPlayer]}/>
       )}
     </>,
     root
@@ -33,10 +32,3 @@ const leftPlayer = css`
 const rightPlayer = css`
   right: 1em;
 `
-
-export const playerColorCode: Record<PlayerColor, string> = {
-  [PlayerColor.Red]: 'red',
-  [PlayerColor.Blue]: 'blue',
-  [PlayerColor.Green]: 'green',
-  [PlayerColor.Yellow]: 'yellow'
-}
