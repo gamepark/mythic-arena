@@ -1,3 +1,5 @@
 export enum MaterialType {
-  PantheonCard = 1
+  PantheonCard = 1,
+  AllegianceToken,
+  StrengthToken
 }

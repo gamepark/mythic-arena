@@ -41,5 +41,5 @@ export enum PantheonCard {
   Sol,
 }
 
-export const greekCards = getEnumValues(PantheonCard).filter((c) => c >= PantheonCard.Tyr)
-export const norseCards = getEnumValues(PantheonCard).filter((c) => c < PantheonCard.Tyr)
+export const greekCards = getEnumValues(PantheonCard).filter((c) => c < PantheonCard.Tyr)
+export const norseCards = getEnumValues(PantheonCard).filter((c) => c >= PantheonCard.Tyr)

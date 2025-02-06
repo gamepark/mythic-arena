@@ -1,10 +1,13 @@
-import { Location, MaterialItem, MaterialRulesPart } from '@gamepark/rules-api'
+import { Location, MaterialGame, MaterialItem, MaterialRulesPart } from '@gamepark/rules-api'
 import uniqBy from 'lodash/uniqBy'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 
 export class TableauHelper extends MaterialRulesPart {
 
+  constructor(game: MaterialGame, readonly maxSize: number = 4) {
+    super(game)
+  }
 
   get availableSpaces() {
 
@@ -20,22 +23,22 @@ export class TableauHelper extends MaterialRulesPart {
     playedCards.forEach(playedCard => {
       const coordinates = { x: playedCard.location.x, y: playedCard.location.y }
       const left = { x: playedCard.location.x! - 1, y: playedCard.location.y! }
-      if (!playedCards.find(item => isAnyCardToTheLeft(item, coordinates)) && (boundaries.xMax - left.x < 5)) {
+      if (!playedCards.find(item => isAnyCardToTheLeft(item, coordinates)) && (boundaries.xMax - left.x < this.maxSize)) {
         availableSpaces.push({ type: LocationType.Battlefield, x: left.x, y: left.y, z: 0 })
       }
 
       const right = { x: playedCard.location.x! + 1, y: playedCard.location.y! }
-      if (!playedCards.find(item => isAnyCardToTheRight(item, coordinates)) && (right.x - boundaries.xMin < 5)) {
+      if (!playedCards.find(item => isAnyCardToTheRight(item, coordinates)) && (right.x - boundaries.xMin < this.maxSize)) {
         availableSpaces.push({ type: LocationType.Battlefield, x: right.x, y: right.y, z: 0 })
       }
 
       const below = { x: playedCard.location.x!, y: playedCard.location.y! + 1 }
-      if (!playedCards.find(item => isAnyCardBelow(item, coordinates)) && (below.y - boundaries.yMin < 5)) {
+      if (!playedCards.find(item => isAnyCardBelow(item, coordinates)) && (below.y - boundaries.yMin < this.maxSize)) {
         availableSpaces.push({ type: LocationType.Battlefield, x: below.x, y: below.y, z: 0 })
       }
 
       const above = { x: playedCard.location.x!, y: playedCard.location.y! - 1 }
-      if (!playedCards.find(item => isAnyCardAbove(item, coordinates)) && (boundaries.yMax - above.y < 5)) {
+      if (!playedCards.find(item => isAnyCardAbove(item, coordinates)) && (boundaries.yMax - above.y < this.maxSize)) {
         availableSpaces.push({ type: LocationType.Battlefield, x: above.x, y: above.y, z: 0 })
       }
     })

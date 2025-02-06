@@ -35,6 +35,10 @@ export class MythicArenaSetup extends MaterialGameSetup<PantheonType, MaterialTy
           player: player
         }
       })))
+
+    this.material(MaterialType.PantheonCard)
+      .player(player)
+      .shuffle()
   }
 
   start() {
