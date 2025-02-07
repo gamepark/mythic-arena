@@ -1,4 +1,4 @@
-import { MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { getCardRule } from './character/card.utils'
@@ -7,7 +7,7 @@ import { RuleId } from './RuleId'
 
 export class CaptureCardRule extends PlayerTurnRule {
   onRuleStart() {
-    if (this.cardWithOpponentAllegiance.length === 1) return [this.startRule(RuleId.PlayStrengthToken)]
+    if (!this.cardWithOpponentAllegiance.length) return [this.startRule(RuleId.PlayStrengthToken)]
     return []
   }
 
@@ -23,10 +23,20 @@ export class CaptureCardRule extends PlayerTurnRule {
     return moves
   }
 
+  afterItemMove(move: ItemMove) {
+    if (!isMoveItemType(MaterialType.AllegianceToken)(move)) return []
+    if (move.location.type === LocationType.PantheonCard) {
+      const card = this.material(MaterialType.PantheonCard).index(move.location.parent!)
+      new CaptureHelper(this.game).persistCapturedCardCoordinates(card)
+    }
+
+    return [this.startRule(RuleId.PlayStrengthToken)]
+  }
+
   get cardWithOpponentAllegiance() {
     return this
       .material(MaterialType.PantheonCard)
       .location(LocationType.Battlefield)
-      .filter((_, index) => getCardRule(this.game, index)?.allegiance === this.player)
+      .filter((_, index) => getCardRule(this.game, index)?.allegiance !== this.player)
   }
 }

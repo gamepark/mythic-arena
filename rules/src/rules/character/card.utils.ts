@@ -11,7 +11,9 @@ import { Hela } from './Hela'
 import { Helios } from './Helios'
 import { Hera } from './Hera'
 import { Heracles } from './Heracles'
+import { Njord } from './Njord'
 import { PantheonCardRule } from './PantheonCardRule'
+import { Poseidon } from './Poseidon'
 import { Siegfried } from './Siegfried'
 import { Sol } from './Sol'
 import { Thor } from './Thor'
@@ -54,8 +56,8 @@ export const CardRules: Partial<Record<PantheonCard, typeof PantheonCardRule>> =
   //[PantheonCard.Erinyes]: Erinyes,
   //[PantheonCard.Balder]: Balder,
   //[PantheonCard.Apollon]: Apollon,
-  //[PantheonCard.Njord]: Njord,
-  //[PantheonCard.Poseidon]: Poseidon,
+  [PantheonCard.Njord]: Njord,
+  [PantheonCard.Poseidon]: Poseidon,
   //[PantheonCard.Nerthus]: Nerthus,
   //[PantheonCard.Gaia]: Gaia,
   //[PantheonCard.Odin]: Odin,

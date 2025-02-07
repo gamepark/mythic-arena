@@ -39,6 +39,16 @@ export class MythicArenaSetup extends MaterialGameSetup<PantheonType, MaterialTy
     this.material(MaterialType.PantheonCard)
       .player(player)
       .shuffle()
+
+    this.material(MaterialType.AllegianceToken)
+      .createItem({
+        id: player,
+        location: {
+          type: LocationType.AllegianceStock,
+          player: player
+        },
+        quantity: 25
+      })
   }
 
   start() {

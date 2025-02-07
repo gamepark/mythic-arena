@@ -12,7 +12,7 @@ export class Ull extends PantheonCardRule {
   get discard() {
     return this.material(MaterialType.PantheonCard)
       .location(LocationType.PantheonDiscard)
-      .player(this.getActivePlayer())
+      .player(this.allegiance)
       .length
   }
 }

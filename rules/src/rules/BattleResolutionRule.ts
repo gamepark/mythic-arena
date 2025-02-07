@@ -20,9 +20,6 @@ export class BattleResolutionRule extends PlayerTurnRule {
     moves.push(this.startRule(RuleId.PostBattleEffect))
     return moves
   }
-  getPlayerMoves() {
-    return []
-  }
 
   get card() {
     return this
@@ -46,7 +43,9 @@ export class BattleResolutionRule extends PlayerTurnRule {
 
     const isWin = targetRule.hasFragilityFor(oppositeDirection) || cardRule.power > targetRule.power
     if (isWin) {
-      return new CaptureHelper(this.game).captureCard(target)
+      const helper = new CaptureHelper(this.game)
+      helper.persistCapturedCardCoordinates(target)
+      return helper.captureCard(target)
     }
 
     return moves

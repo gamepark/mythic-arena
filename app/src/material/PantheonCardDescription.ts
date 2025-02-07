@@ -1,6 +1,9 @@
+import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
+import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
 import { PantheonCard } from '@gamepark/mythic-arena/material/PantheonCard'
 import { PantheonType } from '@gamepark/mythic-arena/material/PantheonType'
-import { CardDescription } from '@gamepark/react-game'
+import { CardDescription, ItemContext } from '@gamepark/react-game'
+import { isMoveItemType, MaterialMove } from '@gamepark/rules-api'
 import Dionysos from '../images/pantheon/greek/Dionysos.jpg'
 import Asclepios from '../images/pantheon/greek/Asclepios.jpg'
 import Zeus from '../images/pantheon/greek/Zeus.jpg'
@@ -82,6 +85,11 @@ export class PantheonCardDescription extends CardDescription {
     [PantheonCard.Odin]: Odin,
     [PantheonCard.Thor]: Thor,
     [PantheonCard.Sol]: Sol,
+  }
+
+  canShortClick(move: MaterialMove, context: ItemContext): boolean {
+    if (isMoveItemType(MaterialType.AllegianceToken)(move) && move.location.type === LocationType.PantheonCard && move.location.parent === context.index) return true
+    return super.canShortClick(move, context)
   }
 }
 

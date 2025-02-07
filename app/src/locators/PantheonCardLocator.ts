@@ -7,6 +7,8 @@ export class PantheonCardLocator extends Locator {
   locationDescription = new PantheonCarLocationDescription()
   parentItemType = MaterialType.PantheonCard
 
+  coordinates = { x: 0, y: 0, z: 0 }
+
   getPositionOnParent(_location: Location) {
     return { x: 50, y: 63 }
   }

@@ -1,4 +1,4 @@
-import { MaterialContext, PileLocator } from '@gamepark/react-game'
+import { DropAreaDescription, MaterialContext, PileLocator } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 import { pantheonCardDescription } from '../material/PantheonCardDescription'
 import { pantheonDeckLocator } from './PantheonDeckLocator'
@@ -12,6 +12,9 @@ export class AllegianceStockLocator extends PileLocator {
     coordinates.y -= pantheonCardDescription.height * 2 + 2
     return coordinates
   }
+
+
+  locationDescription = new DropAreaDescription({ height: 15, width: 15 })
 }
 
 export const allegianceStockLocator = new AllegianceStockLocator()

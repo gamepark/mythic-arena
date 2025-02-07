@@ -10,10 +10,8 @@ export class BattlefieldDescription extends DropAreaDescription {
     super(pantheonCardDescription)
   }
 
-  getExtraCss(location: Location, context: MaterialContext) {
-    const extra = super.getExtraCss(location, context)
-    if (location.x === undefined && location.y === undefined) return [battlefieldSquareCss]
-    return extra
+  getExtraCss(location: Location, _context: MaterialContext) {
+    return battlefieldSquareCss(location)
   }
 
   extraCss = css`
@@ -22,9 +20,22 @@ export class BattlefieldDescription extends DropAreaDescription {
 
 }
 
-const battlefieldSquareCss = css`
+const battlefieldSquareCss = (location: Location) => css`
   background-color: rgba(255, 255, 255, 0.4);
-  pointer-events: none
+  pointer-events: none;
+    &:before {
+        content: '${location.x} / ${location.y}';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        color: white;
+        font-size: 2em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+    }
 `
 
 export const battlefieldDescription = new BattlefieldDescription()

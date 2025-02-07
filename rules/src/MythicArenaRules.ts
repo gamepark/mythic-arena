@@ -7,6 +7,7 @@ import { BattleResolutionRule } from './rules/BattleResolutionRule'
 import { CaptureCardRule } from './rules/CaptureCardRule'
 import { DrawCardRule } from './rules/DrawCardRule'
 import { EndOfTurnRule } from './rules/EndOfTurnRule'
+import { HelaHadesRule } from './rules/HelaHadesRule'
 import { PlaceCardRule } from './rules/PlaceCardRule'
 import { PlayEffectRule } from './rules/PlayEffectRule'
 import { PlayStrengthTokenRule } from './rules/PlayStrengthTokenRule'
@@ -31,12 +32,14 @@ export class MythicArenaRules extends SecretMaterialRules<PantheonType, Material
     [RuleId.AllegianceScore]: AllegianceScoreRule,
     [RuleId.EndOfTurn]: EndOfTurnRule,
     [RuleId.TakeDiscardCard]: TakeDiscardCardRule,
-    [RuleId.CaptureCard]: CaptureCardRule
+    [RuleId.CaptureCard]: CaptureCardRule,
+    [RuleId.HelaHades]: HelaHadesRule
   }
 
   locationsStrategies = {
     [MaterialType.PantheonCard]: {
       [LocationType.PantheonDeck]: new PositiveSequenceStrategy(),
+      [LocationType.PantheonDiscard]: new PositiveSequenceStrategy(),
       [LocationType.PlayerHand]: new PositiveSequenceStrategy()
     }
   }

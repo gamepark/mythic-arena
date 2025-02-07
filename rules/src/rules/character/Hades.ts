@@ -1,9 +1,9 @@
-import { MaterialMove, MoveItem } from '@gamepark/rules-api'
+import { MaterialMove } from '@gamepark/rules-api'
 import { RuleId } from '../RuleId'
-import { Hela } from './Hela'
+import { PantheonCardRule } from './PantheonCardRule'
 
-export class Hades extends Hela {
-  onPlaceCard(_move: MoveItem): MaterialMove[] {
+export class Hades extends PantheonCardRule {
+  afterCardPlaced(): MaterialMove[] {
     return [this.startRule(RuleId.HelaHades)]
   }
 }

@@ -6,6 +6,7 @@ export class EndOfTurnRule extends PlayerTurnRule {
   onRuleStart() {
     return [this.startPlayerTurn(RuleId.DrawCard, this.nextPlayer)]
   }
+
   getPlayerMoves() {
     return []
   }

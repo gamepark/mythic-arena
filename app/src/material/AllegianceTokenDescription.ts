@@ -1,9 +1,10 @@
 import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
+import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
 import { PantheonType } from '@gamepark/mythic-arena/material/PantheonType'
-import { RoundTokenDescription } from '@gamepark/react-game'
-import { MaterialItem } from '@gamepark/rules-api'
-import Norse from '../images/allegency/norse.jpg'
+import { ItemContext, RoundTokenDescription } from '@gamepark/react-game'
+import { isMoveItemType, MaterialMove } from '@gamepark/rules-api'
 import Greek from '../images/allegency/greek.jpg'
+import Norse from '../images/allegency/norse.jpg'
 
 export class AllegianceTokenDescription extends RoundTokenDescription {
   diameter = 2.2
@@ -13,15 +14,10 @@ export class AllegianceTokenDescription extends RoundTokenDescription {
     [PantheonType.Greek]: Greek
   }
 
-  getStockLocation = (item: MaterialItem) => ({
-    type: LocationType.AllegianceStock,
-    player: item.id
-  })
-
-  staticItems = [
-    { quantity: 20, id: PantheonType.Norse, location: { type: LocationType.AllegianceStock, player: PantheonType.Norse }},
-    { quantity: 20, id: PantheonType.Greek, location: { type: LocationType.AllegianceStock, player: PantheonType.Greek }},
-  ]
+  canShortClick(move: MaterialMove, context: ItemContext): boolean {
+    if (isMoveItemType(MaterialType.AllegianceToken)(move) && move.location.type === LocationType.AllegianceStock && move.itemIndex === context.index) return true
+    return super.canShortClick(move, context)
+  }
 }
 
 export const allegianceTokenDescription = new AllegianceTokenDescription()

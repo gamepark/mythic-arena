@@ -1,4 +1,4 @@
-import { Direction, getSquareInDirection, Material, MaterialGame, MaterialItem, MaterialMove, MaterialRulesPart, MoveItem } from '@gamepark/rules-api'
+import { Direction, getSquareInDirection, Material, MaterialGame, MaterialItem, MaterialMove, MaterialRulesPart } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { PantheonCard } from '../../material/PantheonCard'
@@ -97,7 +97,7 @@ export class PantheonCardRule extends MaterialRulesPart {
     return 0
   }
 
-  onPlaceCard(_move: MoveItem): MaterialMove[] {
+  afterCardPlaced(): MaterialMove[] {
     return []
   }
 

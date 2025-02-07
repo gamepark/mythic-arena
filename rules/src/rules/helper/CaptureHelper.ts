@@ -6,7 +6,7 @@ import { Memory } from '../Memory'
 export class CaptureHelper extends PlayerTurnRule {
 
   persistCapturedCardCoordinates(card: Material) {
-    this.memorize(Memory.CapturedCoordinates, (c: XYCoordinates[] = [])=> {
+    this.memorize(Memory.CapturedCoordinates, (c: XYCoordinates[] = []) => {
       const item = card.getItem()!
       c.push({ x: item.location.x!, y: item.location.y! })
       return c
@@ -14,11 +14,13 @@ export class CaptureHelper extends PlayerTurnRule {
   }
 
   captureCard(card: Material) {
-    new CaptureHelper(this.game).persistCapturedCardCoordinates(card)
     const moves: MaterialMove[] = []
     const existingToken = this.material(MaterialType.AllegianceToken).parent(card.getIndex())
     if (existingToken.length) {
-      moves.push(existingToken.deleteItem())
+      moves.push(existingToken.moveItem({
+        type: LocationType.AllegianceStock,
+        player: existingToken.getItem()!.id
+      }))
     }
 
     if (existingToken.length && existingToken.getItem()!.id !== this.player) return moves
@@ -27,12 +29,11 @@ export class CaptureHelper extends PlayerTurnRule {
     moves.push(
       this
         .material(MaterialType.AllegianceToken)
-        .createItem({
-          id: this.player,
-          location: {
-            type: LocationType.PantheonCard,
-            parent: card.getIndex()
-          }
+        .location(LocationType.AllegianceStock)
+        .player(this.player)
+        .moveItem({
+          type: LocationType.PantheonCard,
+          parent: card.getIndex()
         })
     )
 
