@@ -40,6 +40,7 @@ import Thor from '../images/pantheon/norse/Thor.jpg'
 import Sol from '../images/pantheon/norse/Sol.jpg'
 import Greek from '../images/pantheon/greek/Greek.jpg'
 import Norse from '../images/pantheon/norse/Norse.jpg'
+import { PantheonCardHelp } from './help/PantheonCardHelp'
 
 export class PantheonCardDescription extends CardDescription {
   backImages = {
@@ -91,6 +92,8 @@ export class PantheonCardDescription extends CardDescription {
     if (isMoveItemType(MaterialType.AllegianceToken)(move) && move.location.type === LocationType.PantheonCard && move.location.parent === context.index) return true
     return super.canShortClick(move, context)
   }
+
+  help = PantheonCardHelp
 }
 
 export const pantheonCardDescription = new PantheonCardDescription()

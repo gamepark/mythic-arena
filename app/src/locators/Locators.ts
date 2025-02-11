@@ -8,6 +8,8 @@ import { pantheonCardLocator } from './PantheonCardLocator'
 import { pantheonDeckLocator } from './PantheonDeckLocator'
 import { pantheonDiscardLocator } from './PantheonDiscardLocator'
 import { playerHandLocator } from './PlayerHandLocator'
+import { playerStrengthTokenLocator } from './PlayerStrengthTokenLocator'
+import { strengthTokenStockLocator } from './StrengthTokenStockLocator'
 
 export const Locators: Partial<Record<LocationType, Locator<PantheonType, MaterialType, LocationType>>> = {
   [LocationType.Battlefield]: battlefieldLocator,
@@ -15,5 +17,7 @@ export const Locators: Partial<Record<LocationType, Locator<PantheonType, Materi
   [LocationType.PantheonDiscard]: pantheonDiscardLocator,
   [LocationType.PlayerHand]: playerHandLocator,
   [LocationType.AllegianceStock]: allegianceStockLocator,
-  [LocationType.PantheonCard]: pantheonCardLocator
+  [LocationType.PantheonCard]: pantheonCardLocator,
+  [LocationType.StrengthTokenStock]: strengthTokenStockLocator,
+  [LocationType.PlayerStrengthStock]: playerStrengthTokenLocator
 }

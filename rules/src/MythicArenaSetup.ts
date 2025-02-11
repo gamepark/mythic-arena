@@ -15,6 +15,17 @@ export class MythicArenaSetup extends MaterialGameSetup<PantheonType, MaterialTy
 
   setupMaterial(_options: MythicArenaOptions) {
     this.setupPlayers()
+    this.setupStrengthToken()
+  }
+
+  setupStrengthToken() {
+    return this.material(MaterialType.StrengthToken)
+      .createItem({
+        location: {
+          type: LocationType.StrengthTokenStock
+        },
+        quantity: 20
+      })
   }
 
   setupPlayers() {

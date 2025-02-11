@@ -35,8 +35,7 @@ export class PlaceCardRule extends PlayerTurnRule {
     const hand = this.hand
     const cardRule = getCardRule(this.game, hand.getIndex())
     const canBeFifthCard = cardRule?.canBeFifthCard ?? false
-    const tableauSize = canBeFifthCard ? 6 : 4
-    const spaces = new TableauHelper(this.game, tableauSize).availableSpaces
+    const spaces = new TableauHelper(this.game, canBeFifthCard).availableSpaces
 
     if (!canBeFifthCard) return spaces
 
@@ -61,10 +60,7 @@ export class PlaceCardRule extends PlayerTurnRule {
       .getItems()
   }
 
-  afterItemMove(move
-                :
-                ItemMove
-  ) {
+  afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.PantheonCard)(move)) return []
     if (move.location.type === LocationType.PantheonDiscard) {
       this.memorize(Memory.SecondChance, true)
@@ -72,6 +68,16 @@ export class PlaceCardRule extends PlayerTurnRule {
     }
 
     if (move.location.type === LocationType.Battlefield) {
+      const battlefield = this.battlefield
+      const countOnLine = battlefield.filter((item) => item.location.y === move.location.y).length
+      const countOnColumn = battlefield.filter((item) => item.location.x === move.location.x).length
+      if (countOnLine === 5 || countOnColumn === 5) {
+        this.memorize(Memory.FifthCards, (c: number[] = []) => {
+          c.push(move.itemIndex)
+          return c
+        })
+      }
+
       this.memorize(Memory.PlacedCard, move.itemIndex)
       return [this.startRule(RuleId.PlayEffect)]
     }

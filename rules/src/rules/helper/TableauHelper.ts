@@ -3,23 +3,35 @@ import uniqBy from 'lodash/uniqBy'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { PantheonCard } from '../../material/PantheonCard'
+import { Memory } from '../Memory'
 
 export class TableauHelper extends MaterialRulesPart {
-
-  constructor(game: MaterialGame, readonly maxSize: number = 4) {
+  private maxSize: number = 4
+  constructor(game: MaterialGame, big?: boolean) {
     super(game)
+    if (big) {
+      this.maxSize = 6
+    }
   }
 
   get availableSpaces() {
 
     const availableSpaces: Location[] = []
     const boundaries = this.boundaries
-    const playedCards = this.panorama.getItems()
+    let playedCards: MaterialItem[] = []
+
+    if (this.maxSize === 4) {
+      playedCards = this.panorama.filter((_, index) => {
+        console.log(this.fifthCards, index, !this.fifthCards.includes(index))
+        return !this.fifthCards.includes(index)
+      }).getItems()
+    } else {
+      playedCards = this.panorama.getItems()
+    }
 
     if (playedCards.length === 0) {
       availableSpaces.push({ type: LocationType.Battlefield, x: 0, y: 0, z: 0 })
     }
-
 
     const sol = this.getPantheonCard(PantheonCard.Sol)
     const helios = this.getPantheonCard(PantheonCard.Helios)
@@ -62,7 +74,15 @@ export class TableauHelper extends MaterialRulesPart {
   }
 
   get boundaries() {
-    const panorama = this.panorama
+    let panorama = this.panorama
+    if (this.maxSize > 4) {
+      panorama = panorama.filter((space) => {
+        const countOnLine = panorama.filter((item) => item.location.y === space.location.y).length
+        const countOnColumn = panorama.filter((item) => item.location.x === space.location.x).length
+        return countOnLine === 4 || countOnColumn === 4
+      })
+    }
+
     let xMin = panorama.minBy((item) => item.location.x!).getItem()?.location?.x ?? 0
     let xMax = panorama.maxBy((item) => item.location.x!).getItem()?.location?.x ?? 0
     let yMin = panorama.minBy((item) => item.location.y!).getItem()?.location?.y ?? 0
@@ -73,6 +93,10 @@ export class TableauHelper extends MaterialRulesPart {
       yMin,
       yMax
     }
+  }
+
+  get fifthCards() {
+    return this.remind<number[]>(Memory.FifthCards) ?? []
   }
 
   get panorama() {

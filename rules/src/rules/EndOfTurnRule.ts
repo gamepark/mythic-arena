@@ -13,6 +13,7 @@ export class EndOfTurnRule extends PlayerTurnRule {
 
   onRuleEnd() {
     this.forget(Memory.SecondChance)
+    this.forget(Memory.CapturedCoordinates)
     return []
   }
 }

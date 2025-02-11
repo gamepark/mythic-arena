@@ -1,12 +1,16 @@
 import { PlayerTurnRule } from '@gamepark/rules-api'
+import { getCardRule } from './character/card.utils'
+import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
 export class PostBattleEffectRule extends PlayerTurnRule {
   onRuleStart() {
-    return [this.startRule(RuleId.AllegianceScore)]
+    const moves = getCardRule(this.game, this.placedCard)?.afterBattle() ?? []
+    moves.push(this.startRule(RuleId.AllegianceScore))
+    return moves
   }
 
-  getPlayerMoves() {
-    return []
+  get placedCard() {
+    return this.remind<number>(Memory.PlacedCard)
   }
 }
