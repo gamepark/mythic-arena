@@ -3,49 +3,49 @@ import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
 import { PantheonCard } from '@gamepark/mythic-arena/material/PantheonCard'
 import { PantheonType } from '@gamepark/mythic-arena/material/PantheonType'
 import { CardDescription, ItemContext } from '@gamepark/react-game'
-import { isMoveItemType, MaterialMove } from '@gamepark/rules-api'
-import Dionysos from '../images/pantheon/greek/Dionysos.jpg'
-import Asclepios from '../images/pantheon/greek/Asclepios.jpg'
-import Zeus from '../images/pantheon/greek/Zeus.jpg'
-import Hera from '../images/pantheon/greek/Hera.jpg'
-import Erinyes from '../images/pantheon/greek/Erinyes.jpg'
-import Demeter from '../images/pantheon/greek/Demeter.jpg'
-import Poseidon from '../images/pantheon/greek/Poseidon.jpg'
-import Heracles from '../images/pantheon/greek/Heracles.jpg'
-import Helios from '../images/pantheon/greek/Helios.jpg'
-import Apollon from '../images/pantheon/greek/Apollon.jpg'
-import Hephaistos from '../images/pantheon/greek/Hephaistos.jpg'
+import { isMoveItemType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import Aphrodite from '../images/pantheon/greek/Aphrodite.jpg'
-import Hades from '../images/pantheon/greek/Hades.jpg'
+import Apollon from '../images/pantheon/greek/Apollon.jpg'
 import Ares from '../images/pantheon/greek/Ares.jpg'
-import Athena from '../images/pantheon/greek/Athena.jpg'
-import Gaia from '../images/pantheon/greek/Gaia.jpg'
 import Artemis from '../images/pantheon/greek/Artemis.jpg'
-import Tyr from '../images/pantheon/norse/Tyr.jpg'
-import Njord from '../images/pantheon/norse/Njord.jpg'
+import Asclepios from '../images/pantheon/greek/Asclepios.jpg'
+import Athena from '../images/pantheon/greek/Athena.jpg'
+import Demeter from '../images/pantheon/greek/Demeter.jpg'
+import Dionysos from '../images/pantheon/greek/Dionysos.jpg'
+import Erinyes from '../images/pantheon/greek/Erinyes.jpg'
+import Gaia from '../images/pantheon/greek/Gaia.jpg'
+import Greek from '../images/pantheon/greek/Greek.jpg'
+import Hades from '../images/pantheon/greek/Hades.jpg'
+import Helios from '../images/pantheon/greek/Helios.jpg'
+import Hephaistos from '../images/pantheon/greek/Hephaistos.jpg'
+import Hera from '../images/pantheon/greek/Hera.jpg'
+import Heracles from '../images/pantheon/greek/Heracles.jpg'
+import Poseidon from '../images/pantheon/greek/Poseidon.jpg'
+import Zeus from '../images/pantheon/greek/Zeus.jpg'
+import Balder from '../images/pantheon/norse/Balder.jpg'
 import Beyla from '../images/pantheon/norse/Beyla.jpg'
+import Eir from '../images/pantheon/norse/Eir.jpg'
+import Freyja from '../images/pantheon/norse/Freyja.jpg'
+import Freyr from '../images/pantheon/norse/Freyr.jpg'
+import Frigg from '../images/pantheon/norse/Frigg.jpg'
+import Hela from '../images/pantheon/norse/Hela.jpg'
+import Loki from '../images/pantheon/norse/Loki.jpg'
+import Nerthus from '../images/pantheon/norse/Nerthus.jpg'
+import Njord from '../images/pantheon/norse/Njord.jpg'
+import Norse from '../images/pantheon/norse/Norse.jpg'
+import Odin from '../images/pantheon/norse/Odin.jpg'
+import Siegfried from '../images/pantheon/norse/Siegfried.jpg'
+import Sol from '../images/pantheon/norse/Sol.jpg'
+import Thor from '../images/pantheon/norse/Thor.jpg'
+import Tyr from '../images/pantheon/norse/Tyr.jpg'
 import Ull from '../images/pantheon/norse/Ull.jpg'
 import Vali from '../images/pantheon/norse/Vali.jpg'
-import Frigg from '../images/pantheon/norse/Frigg.jpg'
-import Loki from '../images/pantheon/norse/Loki.jpg'
-import Freyja from '../images/pantheon/norse/Freyja.jpg'
-import Siegfried from '../images/pantheon/norse/Siegfried.jpg'
-import Nerthus from '../images/pantheon/norse/Nerthus.jpg'
-import Hela from '../images/pantheon/norse/Hela.jpg'
-import Freyr from '../images/pantheon/norse/Freyr.jpg'
-import Balder from '../images/pantheon/norse/Balder.jpg'
-import Eir from '../images/pantheon/norse/Eir.jpg'
-import Odin from '../images/pantheon/norse/Odin.jpg'
-import Thor from '../images/pantheon/norse/Thor.jpg'
-import Sol from '../images/pantheon/norse/Sol.jpg'
-import Greek from '../images/pantheon/greek/Greek.jpg'
-import Norse from '../images/pantheon/norse/Norse.jpg'
 import { PantheonCardHelp } from './help/PantheonCardHelp'
 
 export class PantheonCardDescription extends CardDescription {
   backImages = {
     [PantheonType.Greek]: Greek,
-    [PantheonType.Norse]: Norse,
+    [PantheonType.Norse]: Norse
   }
 
   images = {
@@ -85,12 +85,18 @@ export class PantheonCardDescription extends CardDescription {
     [PantheonCard.Eir]: Eir,
     [PantheonCard.Odin]: Odin,
     [PantheonCard.Thor]: Thor,
-    [PantheonCard.Sol]: Sol,
+    [PantheonCard.Sol]: Sol
   }
 
   canShortClick(move: MaterialMove, context: ItemContext): boolean {
     if (isMoveItemType(MaterialType.AllegianceToken)(move) && move.location.type === LocationType.PantheonCard && move.location.parent === context.index) return true
+    if (isMoveItemType(MaterialType.StrengthToken)(move) && move.location.type === LocationType.PantheonCard && move.location.parent === context.index) return true
     return super.canShortClick(move, context)
+  }
+
+
+  getItemMenu(_item: MaterialItem, _context: ItemContext, _legalMoves: MaterialMove[]) {
+    return
   }
 
   help = PantheonCardHelp

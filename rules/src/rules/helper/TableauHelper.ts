@@ -21,10 +21,7 @@ export class TableauHelper extends MaterialRulesPart {
     let playedCards: MaterialItem[] = []
 
     if (this.maxSize === 4) {
-      playedCards = this.panorama.filter((_, index) => {
-        console.log(this.fifthCards, index, !this.fifthCards.includes(index))
-        return !this.fifthCards.includes(index)
-      }).getItems()
+      playedCards = this.panorama.filter((_, index) => !this.fifthCards.includes(index)).getItems()
     } else {
       playedCards = this.panorama.getItems()
     }

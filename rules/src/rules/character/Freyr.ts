@@ -5,7 +5,7 @@ import { PantheonCardRule } from './PantheonCardRule'
 export class Freyr extends PantheonCardRule {
   afterBattle() {
     const tokens = this.strengthTokens
-    if (!tokens.length) return []
+    if (!tokens.getQuantity()) return []
     const activePlayer = this.game.rule?.player
     if (!activePlayer) return []
     return [

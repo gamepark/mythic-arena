@@ -5,8 +5,9 @@ import { PantheonCardRule } from './PantheonCardRule'
 export class Eir extends PantheonCardRule {
   afterBattle() {
     const tokens = this.strengthTokens
-    const wonTokens = Math.min(tokens.length, 2)
-    if (!tokens.length || tokens.length < wonTokens) return []
+    const quantity = tokens.getQuantity()
+    const wonTokens = Math.min(quantity, 2)
+    if (!quantity || quantity < wonTokens) return []
     const activePlayer = this.game.rule?.player
     if (!activePlayer) return []
 

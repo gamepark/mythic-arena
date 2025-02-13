@@ -6,8 +6,9 @@ import { PantheonCardRule } from './PantheonCardRule'
 export class Loki extends PantheonCardRule {
   afterBattle() {
     const tokens = this.strengthTokens
-    const wonTokens = Math.min(tokens.length, this.capturedCard.length)
-    if (!wonTokens || !tokens.length || tokens.length < wonTokens) return []
+    const quantity = tokens.getQuantity()
+    const wonTokens = Math.min(quantity, this.capturedCard.length)
+    if (!wonTokens || !quantity || quantity < wonTokens) return []
     const activePlayer = this.game.rule?.player
     if (!activePlayer) return []
 
