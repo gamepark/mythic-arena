@@ -2,6 +2,7 @@ import { Direction, directions, Material, MaterialMove, PlayerTurnRule } from '@
 import { MaterialType } from '../material/MaterialType'
 import { getCardRule } from './character/card.utils'
 import { CaptureHelper } from './helper/CaptureHelper'
+import { getOpposite } from './helper/direction.utils'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
@@ -36,7 +37,7 @@ export class BattleResolutionRule extends PlayerTurnRule {
     const moves: MaterialMove[] = []
     const cardRule = this.cardRule
     const targetRule = getCardRule(this.game, target.getIndex())!
-    const oppositeDirection = this.getOpposite(direction)
+    const oppositeDirection = getOpposite(direction)
 
     if (targetRule.allegiance === this.player) return []
     if (!cardRule.ignoreShields && targetRule.hasShieldFor(oppositeDirection)) return []
@@ -49,13 +50,6 @@ export class BattleResolutionRule extends PlayerTurnRule {
     }
 
     return moves
-  }
-
-  getOpposite(direction: Direction) {
-    if (direction === Direction.East) return Direction.West
-    if (direction === Direction.West) return Direction.East
-    if (direction === Direction.North) return Direction.South
-    return Direction.North
   }
 
   get placedCard() {

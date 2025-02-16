@@ -1,6 +1,7 @@
-import { getDistanceBetweenSquares, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { Direction, getDistanceBetweenSquares, isMoveItemType, ItemMove, MaterialItem, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { getCardRule } from './character/card.utils'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
@@ -26,11 +27,28 @@ export class PlayStrengthTokenRule extends PlayerTurnRule {
       .getItem(this.placedCardIndex)!
   }
 
-  get adjacentCard() {
-    const placedCard = this.placedCard
-    const origin = { x: placedCard.location.x!, y: placedCard.location.y! }
+  get adjacentCardsWithShield() {
+    const origin = this.origin
+    const placedCardAllegiance = getCardRule(this.game, this.placedCardIndex)!.allegiance
     return this.battlefield
       .filter((item) => getDistanceBetweenSquares(origin, { x: item.location.x!, y: item.location.y! }) === 1)
+      .filter((item, index) => {
+        const directionWithOrigin = this.getDirectionWithOrigin(origin, item)
+        const cardRule = getCardRule(this.game, index)!
+        return cardRule.allegiance !== placedCardAllegiance && cardRule.hasShieldFor(directionWithOrigin)
+      })
+  }
+
+  get origin() {
+    const placedCard = this.placedCard
+    return { x: placedCard.location.x!, y: placedCard.location.y! }
+  }
+
+  getDirectionWithOrigin(origin: XYCoordinates, item: MaterialItem) {
+    if (item.location.x! > origin.x) return Direction.West
+    if (item.location.x! < origin.x) return Direction.East
+    if (item.location.y! > origin.y) return Direction.North
+    return Direction.South
   }
 
   get battlefield() {
@@ -41,15 +59,16 @@ export class PlayStrengthTokenRule extends PlayerTurnRule {
   getPlayerMoves() {
     const moves: MaterialMove[] = []
     const tokens = this.strengthTokens
-
-
+    const origin = this.origin
+    const adjacentCardsWithShield = this.adjacentCardsWithShield
+    if (!tokens.getQuantity()) return []
     moves.push(
-      ...this.adjacentCard.getIndexes().map((index) => tokens.moveItem({
+      ...adjacentCardsWithShield.getIndexes().map((index) => tokens.moveItem({
         type: LocationType.PantheonCard,
+        id: this.getDirectionWithOrigin(origin, adjacentCardsWithShield.getItem(index)),
         parent: index
       }))
     )
-
 
     moves.push(
       tokens.moveItem({
@@ -65,7 +84,7 @@ export class PlayStrengthTokenRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.StrengthToken)(move)) return []
-    //if (!this.strengthTokens.getQuantity()) return [this.startRule(RuleId.BattleResolution)]
+    if (!this.getPlayerMoves().length) return [this.startRule(RuleId.BattleResolution)]
     return [this.startRule(RuleId.BattleResolution)]
   }
 }
