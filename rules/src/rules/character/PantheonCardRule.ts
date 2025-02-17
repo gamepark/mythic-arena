@@ -40,7 +40,8 @@ export class PantheonCardRule extends MaterialRulesPart {
     const powerToken = this
       .material(MaterialType.StrengthToken)
       .parent(this.index)
-      .id(StrengthType.Power)
+      .location(LocationType.PantheonCard)
+      .rotation(StrengthType.Power)
       .length
 
     return basePower + powerToken + this.bonusPower
@@ -60,8 +61,9 @@ export class PantheonCardRule extends MaterialRulesPart {
     return this
       .material(MaterialType.StrengthToken)
       .parent(this.index)
+      .location(LocationType.PantheonCard)
       .locationId(direction)
-      .id(StrengthType.ShatteredShield)
+      .rotation(StrengthType.ShatteredShield)
       .length > 0
   }
 

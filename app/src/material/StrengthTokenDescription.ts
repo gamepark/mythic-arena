@@ -1,5 +1,6 @@
 import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
 import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
+import { StrengthType } from '@gamepark/mythic-arena/material/StrengthType'
 import { ItemContext, MaterialContext, TokenDescription } from '@gamepark/react-game'
 import { isMoveItemType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import Power1 from '../images/strength/power-1.jpg'
@@ -16,7 +17,7 @@ export class StrengthTokenDescription extends TokenDescription {
   }
 
   isFlipped(item: Partial<MaterialItem>, _context: MaterialContext): boolean {
-    return !item.location?.rotation
+    return item.location?.rotation === StrengthType.ShatteredShield
   }
 }
 

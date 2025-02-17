@@ -17,8 +17,8 @@ class BattlefieldLocator extends Locator {
     const deltaX = (xMin + xMax) / 2
     const deltaY = (yMin + yMax) / 2
     return {
-      x: x + (location.x! - deltaX) * (pantheonCardDescription.width + 0.2),
-      y: y + (location.y! - deltaY) * (pantheonCardDescription.height + 0.2),
+      x: x + (location.x! - deltaX) * (pantheonCardDescription.width + 0.5),
+      y: y + (location.y! - deltaY) * (pantheonCardDescription.height + 0.5),
       z:(location.z ?? 0) * 0.5
     }
   }

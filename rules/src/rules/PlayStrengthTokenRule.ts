@@ -1,14 +1,14 @@
 import { Direction, getDistanceBetweenSquares, isMoveItemType, ItemMove, MaterialItem, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { StrengthType } from '../material/StrengthType'
 import { getCardRule } from './character/card.utils'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
 export class PlayStrengthTokenRule extends PlayerTurnRule {
   onRuleStart() {
-    const tokens = this.strengthTokens
-    if (!tokens.getQuantity()) return [this.startRule(RuleId.BattleResolution)]
+    if (!this.getPlayerMoves().length) return [this.startRule(RuleId.BattleResolution)]
     return []
   }
 
@@ -66,20 +66,28 @@ export class PlayStrengthTokenRule extends PlayerTurnRule {
       ...adjacentCardsWithShield.getIndexes().map((index) => tokens.moveItem({
         type: LocationType.PantheonCard,
         id: this.getDirectionWithOrigin(origin, adjacentCardsWithShield.getItem(index)),
-        parent: index
+        parent: index,
+        rotation: StrengthType.ShatteredShield
       }))
     )
 
-    moves.push(
-      tokens.moveItem({
-        type: LocationType.PantheonCard,
-        parent: this.placedCardIndex,
-        rotation: true
-      })
-    )
+    if (this.placedCardRule.power !== 99) {
+      moves.push(
+        tokens.moveItem({
+          type: LocationType.PantheonCard,
+          parent: this.placedCardIndex,
+          rotation: StrengthType.Power
+        })
+      )
+    }
 
+    moves.push(this.startRule(RuleId.BattleResolution))
 
     return moves
+  }
+
+  get placedCardRule() {
+    return getCardRule(this.game, this.placedCardIndex)!
   }
 
   afterItemMove(move: ItemMove) {

@@ -1,4 +1,5 @@
 import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
+import { StrengthType } from '@gamepark/mythic-arena/material/StrengthType'
 import { DropAreaDescription, isItemContext, ItemContext, Locator, MaterialContext } from '@gamepark/react-game'
 import { Direction, Location, MaterialItem } from '@gamepark/rules-api'
 import { pantheonCardDescription } from '../material/PantheonCardDescription'
@@ -21,7 +22,7 @@ export class PantheonCardLocator extends Locator {
 
   getItemRotateZ(item: MaterialItem, context: ItemContext) {
     if (context.type === MaterialType.AllegianceToken) return super.getItemRotateZ(item, context)
-    if (context.type === MaterialType.StrengthToken && item.location.rotation)return 45
+    if (context.type === MaterialType.StrengthToken && item.location.rotation === StrengthType.Power)return 45
     if (item.location.id === Direction.North) return -135
     if (item.location.id === Direction.West) return 135
     if (item.location.id === Direction.North) return -45
