@@ -1,13 +1,15 @@
 import { OptionsSpec } from '@gamepark/rules-api'
-import { PantheonType } from './material/PantheonType'
+import { TFunction } from 'i18next'
+import { pantheons, PantheonType } from './material/PantheonType'
 
 
+type PlayerOptions = { id: PantheonType }
 /**
  * This is the type of object that the game receives when a new game is started.
  * The first generic parameter, "{}", can be changed to include game options like variants or expansions.
  */
 export type MythicArenaOptions = {
-  players: PantheonType
+  players: PlayerOptions[]
 }
 
 /**
@@ -15,4 +17,11 @@ export type MythicArenaOptions = {
  * (forms for friendly games, or forms for matchmaking preferences, for instance).
  */
 export const MythicArenaOptionsSpec: OptionsSpec<MythicArenaOptions> = {
+  players: {
+    id: {
+      label: (t: TFunction) => t('player.pantheon'),
+      values: pantheons,
+      valueSpec: pantheon => ({ label: t => t(`player.${pantheon}`)})
+    }
+  }
 }
