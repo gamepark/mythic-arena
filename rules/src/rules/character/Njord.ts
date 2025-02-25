@@ -12,7 +12,7 @@ export class Njord extends PantheonCardRule {
 
   get weakness() {
     return this.battlefield
-      .id(this.weaknessId)
+      .id(({ front }: any) => this.weaknessId === front)
       .length > 0
   }
 

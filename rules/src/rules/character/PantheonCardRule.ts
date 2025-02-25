@@ -22,7 +22,7 @@ export class PantheonCardRule extends MaterialRulesPart {
   get allegiance() {
     const item = this.item
     if (item.id?.front === undefined) return null
-    const characteristics = PantheonCardsCharacteristics[item.id.front as PantheonCard]
+    const characteristics = this.characteristics
     const baseAllegiance = characteristics.allegiance
     const allegianceToken = this
       .material(MaterialType.AllegianceToken)
@@ -32,10 +32,14 @@ export class PantheonCardRule extends MaterialRulesPart {
     return baseAllegiance
   }
 
+  get characteristics() {
+    return PantheonCardsCharacteristics[this.item.id.front as PantheonCard]
+  }
+
   get power() {
     const item = this.item
     if (item.id?.front === undefined) return 0
-    const characteristics = PantheonCardsCharacteristics[item.id.front as PantheonCard]
+    const characteristics = this.characteristics
     const basePower = characteristics.power
     const powerToken = this
       .material(MaterialType.StrengthToken)
@@ -50,7 +54,7 @@ export class PantheonCardRule extends MaterialRulesPart {
   hasShieldFor(direction: Direction) {
     const item = this.item
     if (item.id?.front === undefined) return false
-    const characteristics = PantheonCardsCharacteristics[item.id.front as PantheonCard]
+    const characteristics = this.characteristics
     return characteristics
       .shieldFor
       .filter((direction) => !this.isShatteredShield(direction))
@@ -70,7 +74,7 @@ export class PantheonCardRule extends MaterialRulesPart {
   hasFragilityFor(direction: Direction) {
     const item = this.item
     if (item.id?.front === undefined) return false
-    const characteristics = PantheonCardsCharacteristics[item.id.front as PantheonCard]
+    const characteristics = this.characteristics
     return characteristics.fragilityFor.includes(direction)
   }
 
@@ -119,4 +123,7 @@ export class PantheonCardRule extends MaterialRulesPart {
     return false
   }
 
+  get countAs() {
+    return 1
+  }
 }

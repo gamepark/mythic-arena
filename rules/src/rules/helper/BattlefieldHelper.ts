@@ -3,9 +3,11 @@ import uniqBy from 'lodash/uniqBy'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { PantheonCard } from '../../material/PantheonCard'
+import { PantheonType } from '../../material/PantheonType'
+import { getCardRule } from '../character/card.utils'
 import { Memory } from '../Memory'
 
-export class TableauHelper extends MaterialRulesPart {
+export class BattlefieldHelper extends MaterialRulesPart {
   private maxSize: number = 4
   constructor(game: MaterialGame, big?: boolean) {
     super(game)
@@ -21,9 +23,9 @@ export class TableauHelper extends MaterialRulesPart {
     let playedCards: MaterialItem[] = []
 
     if (this.maxSize === 4) {
-      playedCards = this.panorama.filter((_, index) => !this.fifthCards.includes(index)).getItems()
+      playedCards = this.battlefield.filter((_, index) => !this.fifthCards.includes(index)).getItems()
     } else {
-      playedCards = this.panorama.getItems()
+      playedCards = this.battlefield.getItems()
     }
 
     if (playedCards.length === 0) {
@@ -67,11 +69,11 @@ export class TableauHelper extends MaterialRulesPart {
   }
 
   getPantheonCard(cardId: PantheonCard) {
-    return this.panorama.id((id: any) => id.front === cardId).getItem()
+    return this.battlefield.id((id: any) => id.front === cardId).getItem()
   }
 
   get boundaries() {
-    let panorama = this.panorama
+    let panorama = this.battlefield
     if (this.maxSize > 4) {
       panorama = panorama.filter((space) => {
         const countOnLine = panorama.filter((item) => item.location.y === space.location.y).length
@@ -96,10 +98,35 @@ export class TableauHelper extends MaterialRulesPart {
     return this.remind<number[]>(Memory.FifthCards) ?? []
   }
 
-  get panorama() {
+  get battlefield() {
     return this
       .material(MaterialType.PantheonCard)
       .location(LocationType.Battlefield)
+  }
+
+  get isComplete() {
+    if (this.maxSize > 4) throw new Error("Is complete method must only be called on 4x4 battlefield")
+    return this.battlefield.length > 16
+  }
+
+  get majorityFor() {
+    const norse = this.countType(PantheonType.Norse)
+    const greek = this.countType(PantheonType.Greek)
+    if (norse === greek) return
+    if (norse > greek) return PantheonType.Norse
+    return PantheonType.Greek
+  }
+
+  countType(type: PantheonType) {
+    const battlefield = this.battlefield.getIndexes()
+    let count = 0
+    for (const index of battlefield) {
+      const rule = getCardRule(this.game, index)!
+      if (rule.allegiance !== type) continue
+      count += rule.countAs
+    }
+
+    return count
   }
 }
 

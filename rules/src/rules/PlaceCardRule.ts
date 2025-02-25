@@ -3,7 +3,7 @@ import isEqual from 'lodash/isEqual'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { getCardRule } from './character/card.utils'
-import { TableauHelper } from './helper/TableauHelper'
+import { BattlefieldHelper } from './helper/BattlefieldHelper'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
@@ -35,12 +35,12 @@ export class PlaceCardRule extends PlayerTurnRule {
     const hand = this.hand
     const cardRule = getCardRule(this.game, hand.getIndex())
     const canBeFifthCard = cardRule?.canBeFifthCard ?? false
-    const spaces = new TableauHelper(this.game, canBeFifthCard).availableSpaces
+    const spaces = new BattlefieldHelper(this.game, canBeFifthCard).availableSpaces
 
     if (!canBeFifthCard) return spaces
 
     const battlefield = this.battlefield
-    const littleTableau = new TableauHelper(this.game).availableSpaces
+    const littleTableau = new BattlefieldHelper(this.game).availableSpaces
     return spaces.filter((space) => {
       const countOnLine = battlefield.filter((item) => item.location.y === space.y).length
       const countOnColumn = battlefield.filter((item) => item.location.x === space.x).length

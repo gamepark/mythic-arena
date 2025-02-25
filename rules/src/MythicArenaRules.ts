@@ -1,4 +1,4 @@
-import { hideFront, MaterialGame, MaterialMove, PositiveSequenceStrategy, SecretMaterialRules, TimeLimit } from '@gamepark/rules-api'
+import { CompetitiveRank, hideFront, MaterialGame, MaterialMove, PositiveSequenceStrategy, SecretMaterialRules, TimeLimit } from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PantheonType } from './material/PantheonType'
@@ -6,6 +6,7 @@ import { AllegianceScoreRule } from './rules/AllegianceScoreRule'
 import { BattleResolutionRule } from './rules/BattleResolutionRule'
 import { CaptureCardRule } from './rules/CaptureCardRule'
 import { DrawCardRule } from './rules/DrawCardRule'
+import { EndGameRule } from './rules/EndGameRule'
 import { EndOfTurnRule } from './rules/EndOfTurnRule'
 import { HelaHadesRule } from './rules/HelaHadesRule'
 import { PlaceCardRule } from './rules/PlaceCardRule'
@@ -21,7 +22,9 @@ import { TakeDiscardCardRule } from './rules/TakeDiscardCardRule'
  * It must follow Game Park "Rules" API so that the Game Park server can enforce the rules.
  */
 export class MythicArenaRules extends SecretMaterialRules<PantheonType, MaterialType, LocationType>
-  implements TimeLimit<MaterialGame<PantheonType, MaterialType, LocationType>, MaterialMove<PantheonType, MaterialType, LocationType>, PantheonType> {
+  implements
+    CompetitiveRank<MaterialGame<PantheonType, MaterialType, LocationType>, MaterialMove<PantheonType, MaterialType, LocationType>, PantheonType>,
+    TimeLimit<MaterialGame<PantheonType, MaterialType, LocationType>, MaterialMove<PantheonType, MaterialType, LocationType>, PantheonType> {
   rules = {
     [RuleId.DrawCard]: DrawCardRule,
     [RuleId.PlaceCard]: PlaceCardRule,
@@ -33,7 +36,8 @@ export class MythicArenaRules extends SecretMaterialRules<PantheonType, Material
     [RuleId.EndOfTurn]: EndOfTurnRule,
     [RuleId.TakeDiscardCard]: TakeDiscardCardRule,
     [RuleId.CaptureCard]: CaptureCardRule,
-    [RuleId.HelaHades]: HelaHadesRule
+    [RuleId.HelaHades]: HelaHadesRule,
+    [RuleId.EndGame]: EndGameRule
   }
 
   locationsStrategies = {
@@ -50,6 +54,32 @@ export class MythicArenaRules extends SecretMaterialRules<PantheonType, Material
     }
   }
 
+  rankPlayers(playerA:PantheonType, playerB:PantheonType) {
+    const playerAGlory = this.getPlayerGlory(playerA)
+    const playerBGlory = this.getPlayerGlory(playerB)
+    if (playerAGlory > playerBGlory) return -1
+    if (playerBGlory > playerAGlory) return 1
+
+    const playerAStrength = this.getPlayerStrength(playerA)
+    const playerBStrength = this.getPlayerStrength(playerB)
+    if (playerAStrength > playerBStrength) return -1
+    if (playerBStrength > playerAStrength) return 1
+    return 0
+  }
+
+  getPlayerGlory(pantheon: PantheonType) {
+    return this
+      .material(MaterialType.GloryPoint)
+      .player(pantheon)
+      .getQuantity()
+  }
+
+  getPlayerStrength(pantheon: PantheonType) {
+    return this
+      .material(MaterialType.StrengthToken)
+      .player(pantheon)
+      .getQuantity()
+  }
 
 
   giveTime(): number {

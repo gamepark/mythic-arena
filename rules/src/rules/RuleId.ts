@@ -9,22 +9,6 @@ export enum RuleId {
   EndOfTurn,
   TakeDiscardCard,
   CaptureCard,
-  HelaHades
-  //SolHelios,
-  //SiegfriedHeracles,
-  //UllArtemis,
-  //FriggHera,
-  //ThorAres,
-  //FreyjaAphrodite,
-  //HelaHades,
-  //TyrAthena,
-  //FreyrDemeter,
-  //LokiHephaistor,
-  //EirAsclepios,
-  //ValiErinyes,
-  //BalderApollon
-  //NjordPoseidon,
-  //NerthusGaia,
-  //OdinZeus
-  //BeylaDionysos,
+  HelaHades,
+  EndGame
 }

@@ -6,5 +6,7 @@ export enum LocationType {
   AllegianceStock,
   PantheonCard,
   PlayerStrengthStock,
-  StrengthTokenStock
+  StrengthTokenStock,
+    GloryStock,
+  PlayerGlory
 }

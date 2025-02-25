@@ -4,9 +4,11 @@ import { PantheonType } from '@gamepark/mythic-arena/material/PantheonType'
 import { Locator } from '@gamepark/react-game'
 import { allegianceStockLocator } from './AllegianceStockLocator'
 import { battlefieldLocator } from './BattlefieldLocator'
+import { gloryStockLocator } from './GloryStockLocator'
 import { pantheonCardLocator } from './PantheonCardLocator'
 import { pantheonDeckLocator } from './PantheonDeckLocator'
 import { pantheonDiscardLocator } from './PantheonDiscardLocator'
+import { playerGloryLocator } from './PlayerGloryLocator'
 import { playerHandLocator } from './PlayerHandLocator'
 import { playerStrengthTokenLocator } from './PlayerStrengthTokenLocator'
 import { strengthTokenStockLocator } from './StrengthTokenStockLocator'
@@ -19,5 +21,7 @@ export const Locators: Partial<Record<LocationType, Locator<PantheonType, Materi
   [LocationType.AllegianceStock]: allegianceStockLocator,
   [LocationType.PantheonCard]: pantheonCardLocator,
   [LocationType.StrengthTokenStock]: strengthTokenStockLocator,
-  [LocationType.PlayerStrengthStock]: playerStrengthTokenLocator
+  [LocationType.PlayerStrengthStock]: playerStrengthTokenLocator,
+  [LocationType.GloryStock]: gloryStockLocator,
+  [LocationType.PlayerGlory]: playerGloryLocator
 }

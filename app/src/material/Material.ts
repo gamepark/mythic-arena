@@ -1,11 +1,13 @@
 import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
 import { MaterialDescription } from '@gamepark/react-game'
 import { allegianceTokenDescription } from './AllegianceTokenDescription'
+import { gloryDescription } from './GloryDescription'
 import { pantheonCardDescription } from './PantheonCardDescription'
 import { strengthTokenDescription } from './StrengthTokenDescription'
 
 export const Material: Partial<Record<MaterialType, MaterialDescription>> = {
   [MaterialType.PantheonCard]: pantheonCardDescription,
   [MaterialType.AllegianceToken]: allegianceTokenDescription,
-  [MaterialType.StrengthToken]: strengthTokenDescription
+  [MaterialType.StrengthToken]: strengthTokenDescription,
+  [MaterialType.GloryPoint]: gloryDescription
 }
