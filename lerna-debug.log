@@ -1,8 +1,0 @@
-45 error Error: Command failed with exit code 128: git tag v0.0.3 -m v0.0.3
-45 error fatal: tag 'v0.0.3' already exists
-45 error     at makeError (C:\Users\pbeau\Documents\GamePark\mythic-arena\node_modules\lerna\node_modules\execa\lib\error.js:59:11)
-45 error     at handlePromise (C:\Users\pbeau\Documents\GamePark\mythic-arena\node_modules\lerna\node_modules\execa\index.js:114:26)
-45 error     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-45 error     at async VersionCommand.gitCommitAndTagVersion (C:\Users\pbeau\Documents\GamePark\mythic-arena\node_modules\lerna\dist\index.js:9972:9)
-45 error     at async VersionCommand.commitAndTagUpdates (C:\Users\pbeau\Documents\GamePark\mythic-arena\node_modules\lerna\dist\index.js:9937:18)
-45 error     at async Promise.all (index 0)
