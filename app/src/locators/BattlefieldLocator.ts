@@ -1,4 +1,5 @@
 import { BattlefieldHelper } from '@gamepark/mythic-arena/rules/helper/BattlefieldHelper'
+import { RuleId } from '@gamepark/mythic-arena/rules/RuleId'
 import { Locator, MaterialContext } from '@gamepark/react-game'
 import { Location, MaterialGame, MaterialRules } from '@gamepark/rules-api'
 import { pantheonCardDescription } from '../material/PantheonCardDescription'
@@ -8,6 +9,13 @@ class BattlefieldLocator extends Locator {
   game?: MaterialGame
   deltaX?: number
   deltaY?: number
+
+  getLocations(context: MaterialContext) {
+    const { rules } = context
+    if (rules.game.rule?.id === RuleId.PlaceCard) return new BattlefieldHelper(rules.game).availableSpaces
+    return super.getLocations(context)
+
+  }
 
   getCoordinates(location: Location, context: MaterialContext) {
     const { rules } = context
