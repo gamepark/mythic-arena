@@ -1,24 +1,22 @@
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
+import { Memory } from '../Memory'
+import { RuleId } from '../RuleId'
 import { PantheonCardRule } from './PantheonCardRule'
 
 export class Freyr extends PantheonCardRule {
   afterBattle() {
-    const tokens = this.strengthTokens
-    if (!tokens.getQuantity()) return []
+    const quantity = this.tokenQuantities
+    if (!quantity) return []
     const activePlayer = this.game.rule?.player
     if (!activePlayer) return []
-    return [
-      this.strengthTokens
-        .moveItem({
-          type: LocationType.PlayerStrengthStock,
-          player: activePlayer
-        })
-    ]
+    this.memorize(Memory.StrengthToken, 1)
+    return [this.startRule(RuleId.TakeStrengthToken)]
   }
 
 
-  get strengthTokens() {
-    return this.material(MaterialType.StrengthToken)
+  get tokenQuantities() {
+    return this.material(MaterialType.Power).location(LocationType.PowerTokenStock).getQuantity()
+      + this.material(MaterialType.ShatteredShield).location(LocationType.ShatteredShieldTokenStock).getQuantity()
   }
 }

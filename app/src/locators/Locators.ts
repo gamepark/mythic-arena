@@ -5,13 +5,17 @@ import { Locator } from '@gamepark/react-game'
 import { allegianceStockLocator } from './AllegianceStockLocator'
 import { battlefieldLocator } from './BattlefieldLocator'
 import { gloryStockLocator } from './GloryStockLocator'
-import { pantheonCardLocator } from './PantheonCardLocator'
+import { pantheonCardAllegianceLocator } from './PantheonCardAllegianceLocator'
+import { pantheonCardPowerLocator } from './PantheonCardPowerLocator'
+import { pantheonCardShatteredShieldLocator } from './PantheonCardShatteredShieldLocator'
 import { pantheonDeckLocator } from './PantheonDeckLocator'
 import { pantheonDiscardLocator } from './PantheonDiscardLocator'
 import { playerGloryLocator } from './PlayerGloryLocator'
 import { playerHandLocator } from './PlayerHandLocator'
-import { playerStrengthTokenLocator } from './PlayerStrengthTokenLocator'
-import { strengthTokenStockLocator } from './StrengthTokenStockLocator'
+import { playerPowerLocator } from './PlayerPowerLocator'
+import { playerShatteredShieldLocator } from './PlayerShatteredShieldLocator'
+import { powerTokenStockLocator } from './PowerTokenStockLocator'
+import { shatteredShieldTokenStockLocator } from './ShatteredShieldTokenStockLocator'
 
 export const Locators: Partial<Record<LocationType, Locator<PantheonType, MaterialType, LocationType>>> = {
   [LocationType.Battlefield]: battlefieldLocator,
@@ -19,9 +23,13 @@ export const Locators: Partial<Record<LocationType, Locator<PantheonType, Materi
   [LocationType.PantheonDiscard]: pantheonDiscardLocator,
   [LocationType.PlayerHand]: playerHandLocator,
   [LocationType.AllegianceStock]: allegianceStockLocator,
-  [LocationType.PantheonCard]: pantheonCardLocator,
-  [LocationType.StrengthTokenStock]: strengthTokenStockLocator,
-  [LocationType.PlayerStrengthStock]: playerStrengthTokenLocator,
+  [LocationType.PantheonCardAllegiance]: pantheonCardAllegianceLocator,
+  [LocationType.PantheonCardPower]: pantheonCardPowerLocator,
+  [LocationType.PantheonCardShatteredShield]: pantheonCardShatteredShieldLocator,
+  [LocationType.PowerTokenStock]: powerTokenStockLocator,
+  [LocationType.ShatteredShieldTokenStock]: shatteredShieldTokenStockLocator,
+  [LocationType.PlayerPower]: playerPowerLocator,
+  [LocationType.PlayerShatteredShield]: playerShatteredShieldLocator,
   [LocationType.GloryStock]: gloryStockLocator,
   [LocationType.PlayerGlory]: playerGloryLocator
 }

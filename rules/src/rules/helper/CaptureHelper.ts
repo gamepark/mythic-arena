@@ -32,7 +32,7 @@ export class CaptureHelper extends PlayerTurnRule {
         .location(LocationType.AllegianceStock)
         .player(this.player)
         .moveItem({
-          type: LocationType.PantheonCard,
+          type: LocationType.PantheonCardAllegiance,
           parent: card.getIndex()
         })
     )

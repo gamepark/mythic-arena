@@ -3,4 +3,5 @@ export enum Memory {
   SecondChance,
   CapturedCoordinates,
   FifthCards,
+  StrengthToken
 }

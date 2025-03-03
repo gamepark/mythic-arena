@@ -1,18 +1,13 @@
-import { Direction, getSquareInDirection, Material, MaterialGame, MaterialItem, MaterialMove, MaterialRulesPart } from '@gamepark/rules-api'
+import { Direction, getSquareInDirection, MaterialGame, MaterialItem, MaterialMove, MaterialRulesPart } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { PantheonCard } from '../../material/PantheonCard'
 import { PantheonCardsCharacteristics } from '../../material/PantheonCardCharacteristics'
-import { StrengthType } from '../../material/StrengthType'
 import { Memory } from '../Memory'
 
 export class PantheonCardRule extends MaterialRulesPart {
   constructor(game: MaterialGame, readonly index: number) {
     super(game)
-  }
-
-  get cardMaterial(): Material {
-    return this.material(MaterialType.PantheonCard).index(this.index)
   }
 
   get item(): MaterialItem {
@@ -42,10 +37,9 @@ export class PantheonCardRule extends MaterialRulesPart {
     const characteristics = this.characteristics
     const basePower = characteristics.power
     const powerToken = this
-      .material(MaterialType.StrengthToken)
+      .material(MaterialType.Power)
       .parent(this.index)
-      .location(LocationType.PantheonCard)
-      .rotation(StrengthType.Power)
+      .location(LocationType.PantheonCardAllegiance)
       .length
 
     return basePower + powerToken + this.bonusPower
@@ -63,11 +57,10 @@ export class PantheonCardRule extends MaterialRulesPart {
 
   isShatteredShield(direction: Direction) {
     return this
-      .material(MaterialType.StrengthToken)
+      .material(MaterialType.ShatteredShield)
       .parent(this.index)
-      .location(LocationType.PantheonCard)
+      .location(LocationType.PantheonCardAllegiance)
       .locationId(direction)
-      .rotation(StrengthType.ShatteredShield)
       .length > 0
   }
 

@@ -12,9 +12,15 @@ export class PlayStrengthTokenRule extends PlayerTurnRule {
     return []
   }
 
-  get strengthTokens() {
-    return this.material(MaterialType.StrengthToken)
-      .location(LocationType.PlayerStrengthStock)
+  get power() {
+    return this.material(MaterialType.Power)
+      .location(LocationType.PlayerPower)
+      .player(this.player)
+  }
+
+  get shatteredShield() {
+    return this.material(MaterialType.ShatteredShield)
+      .location(LocationType.PlayerShatteredShield)
       .player(this.player)
   }
 
@@ -58,32 +64,35 @@ export class PlayStrengthTokenRule extends PlayerTurnRule {
 
   getPlayerMoves() {
     const moves: MaterialMove[] = []
-    const tokens = this.strengthTokens
+    moves.push(...this.placeShatteredShield())
+    moves.push(...this.placePower())
+    moves.push(this.startRule(RuleId.BattleResolution))
+    return moves
+  }
+
+  placePower() {
+    const tokens = this.power
+    if (!tokens.getQuantity() || this.placedCardRule.power === 99) return []
+    return [
+      tokens.moveItem({
+        type: LocationType.PantheonCardAllegiance,
+        parent: this.placedCardIndex,
+        id: StrengthType.Power
+      })
+    ]
+  }
+
+  placeShatteredShield() {
+    const tokens = this.shatteredShield
+    if (!tokens.getQuantity()) return []
     const origin = this.origin
     const adjacentCardsWithShield = this.adjacentCardsWithShield
-    if (!tokens.getQuantity()) return []
-    moves.push(
-      ...adjacentCardsWithShield.getIndexes().map((index) => tokens.moveItem({
-        type: LocationType.PantheonCard,
-        id: this.getDirectionWithOrigin(origin, adjacentCardsWithShield.getItem(index)),
-        parent: index,
-        rotation: StrengthType.ShatteredShield
-      }))
-    )
-
-    if (this.placedCardRule.power !== 99) {
-      moves.push(
-        tokens.moveItem({
-          type: LocationType.PantheonCard,
-          parent: this.placedCardIndex,
-          rotation: StrengthType.Power
-        })
-      )
-    }
-
-    moves.push(this.startRule(RuleId.BattleResolution))
-
-    return moves
+    return adjacentCardsWithShield.getIndexes().map((index) => tokens.moveItem({
+      type: LocationType.PantheonCardAllegiance,
+      id: this.getDirectionWithOrigin(origin, adjacentCardsWithShield.getItem(index)),
+      parent: index,
+      rotation: StrengthType.ShatteredShield
+    }))
   }
 
   get placedCardRule() {
@@ -91,7 +100,7 @@ export class PlayStrengthTokenRule extends PlayerTurnRule {
   }
 
   afterItemMove(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.StrengthToken)(move)) return []
+    if (!isMoveItemType(MaterialType.Power)(move) && !isMoveItemType(MaterialType.ShatteredShield)) return []
     if (!this.getPlayerMoves().length) return [this.startRule(RuleId.BattleResolution)]
     return [this.startRule(RuleId.BattleResolution)]
   }

@@ -15,6 +15,7 @@ import { PlayStrengthTokenRule } from './rules/PlayStrengthTokenRule'
 import { PostBattleEffectRule } from './rules/PostBattleEffectRule'
 import { RuleId } from './rules/RuleId'
 import { TakeDiscardCardRule } from './rules/TakeDiscardCardRule'
+import { TakeStrengthTokenRule } from './rules/TakeStrengthTokenRule'
 
 
 /**
@@ -22,13 +23,13 @@ import { TakeDiscardCardRule } from './rules/TakeDiscardCardRule'
  * It must follow Game Park "Rules" API so that the Game Park server can enforce the rules.
  */
 export class MythicArenaRules extends SecretMaterialRules<PantheonType, MaterialType, LocationType>
-  implements
-    CompetitiveRank<MaterialGame<PantheonType, MaterialType, LocationType>, MaterialMove<PantheonType, MaterialType, LocationType>, PantheonType>,
+  implements CompetitiveRank<MaterialGame<PantheonType, MaterialType, LocationType>, MaterialMove<PantheonType, MaterialType, LocationType>, PantheonType>,
     TimeLimit<MaterialGame<PantheonType, MaterialType, LocationType>, MaterialMove<PantheonType, MaterialType, LocationType>, PantheonType> {
   rules = {
     [RuleId.DrawCard]: DrawCardRule,
     [RuleId.PlaceCard]: PlaceCardRule,
     [RuleId.PlayEffect]: PlayEffectRule,
+    [RuleId.TakeStrengthToken]: TakeStrengthTokenRule,
     [RuleId.PlayStrengthToken]: PlayStrengthTokenRule,
     [RuleId.BattleResolution]: BattleResolutionRule,
     [RuleId.PostBattleEffect]: PostBattleEffectRule,
@@ -54,7 +55,7 @@ export class MythicArenaRules extends SecretMaterialRules<PantheonType, Material
     }
   }
 
-  rankPlayers(playerA:PantheonType, playerB:PantheonType) {
+  rankPlayers(playerA: PantheonType, playerB: PantheonType) {
     const playerAGlory = this.getPlayerGlory(playerA)
     const playerBGlory = this.getPlayerGlory(playerB)
     if (playerAGlory > playerBGlory) return -1
@@ -75,10 +76,14 @@ export class MythicArenaRules extends SecretMaterialRules<PantheonType, Material
   }
 
   getPlayerStrength(pantheon: PantheonType) {
-    return this
-      .material(MaterialType.StrengthToken)
-      .player(pantheon)
-      .getQuantity()
+    return this.material(MaterialType.Power)
+        .location(LocationType.PlayerPower)
+        .player(pantheon)
+        .getQuantity()
+      + this.material(MaterialType.ShatteredShield)
+        .location(LocationType.PlayerShatteredShield)
+        .player(pantheon)
+        .getQuantity()
   }
 
 

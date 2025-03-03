@@ -4,9 +4,13 @@ export enum LocationType {
   PantheonDiscard,
   PlayerHand,
   AllegianceStock,
-  PantheonCard,
-  PlayerStrengthStock,
-  StrengthTokenStock,
-    GloryStock,
-  PlayerGlory
+  PantheonCardAllegiance,
+  PantheonCardPower,
+  PantheonCardShatteredShield,
+  PlayerPower,
+  PlayerShatteredShield,
+  PowerTokenStock,
+  GloryStock,
+  PlayerGlory,
+  ShatteredShieldTokenStock
 }

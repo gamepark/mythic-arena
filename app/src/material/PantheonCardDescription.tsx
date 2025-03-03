@@ -89,8 +89,9 @@ export class PantheonCardDescription extends CardDescription {
   }
 
   canShortClick(move: MaterialMove, context: ItemContext): boolean {
-    if (isMoveItemType(MaterialType.AllegianceToken)(move) && move.location.type === LocationType.PantheonCard && move.location.parent === context.index) return true
-    if (isMoveItemType(MaterialType.StrengthToken)(move) && move.location.type === LocationType.PantheonCard && move.location.parent === context.index) return true
+    if (isMoveItemType(MaterialType.AllegianceToken)(move) && move.location.type === LocationType.PantheonCardAllegiance && move.location.parent === context.index) return true
+    if (isMoveItemType(MaterialType.Power)(move) && move.location.type === LocationType.PantheonCardAllegiance && move.location.parent === context.index) return true
+    if (isMoveItemType(MaterialType.ShatteredShield)(move) && move.location.type === LocationType.PantheonCardShatteredShield && move.location.parent === context.index) return true
     return super.canShortClick(move, context)
   }
 

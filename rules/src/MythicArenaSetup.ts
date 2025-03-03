@@ -19,12 +19,20 @@ export class MythicArenaSetup extends MaterialGameSetup<PantheonType, MaterialTy
   }
 
   setupStrengthToken() {
-    return this.material(MaterialType.StrengthToken)
+    this.material(MaterialType.Power)
       .createItem({
         location: {
-          type: LocationType.StrengthTokenStock
+          type: LocationType.PowerTokenStock
         },
-        quantity: 20
+        quantity: 3
+      })
+
+    this.material(MaterialType.ShatteredShield)
+      .createItem({
+        location: {
+          type: LocationType.ShatteredShieldTokenStock
+        },
+        quantity: 3
       })
   }
 
@@ -33,13 +41,13 @@ export class MythicArenaSetup extends MaterialGameSetup<PantheonType, MaterialTy
     this.setupPlayer(PantheonType.Norse)
   }
 
-  setupPlayer(player: PantheonType)  {
-  const cards = player === PantheonType.Greek? greekCards: norseCards
+  setupPlayer(player: PantheonType) {
+    const cards = player === PantheonType.Greek ? greekCards : norseCards
     this.material(MaterialType.PantheonCard)
       .createItems(cards.map((g) => ({
         id: {
           back: player,
-          front: g,
+          front: g
         },
         location: {
           type: LocationType.PantheonDeck,

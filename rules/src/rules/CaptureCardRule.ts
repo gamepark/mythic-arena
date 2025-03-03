@@ -25,7 +25,7 @@ export class CaptureCardRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.AllegianceToken)(move)) return []
-    if (move.location.type === LocationType.PantheonCard) {
+    if (move.location.type === LocationType.PantheonCardAllegiance) {
       const card = this.material(MaterialType.PantheonCard).index(move.location.parent!)
       new CaptureHelper(this.game).persistCapturedCardCoordinates(card)
     }
