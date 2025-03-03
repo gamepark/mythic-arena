@@ -1,6 +1,6 @@
 {
   "name": "@gamepark/mythic-arena",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "The rules of Mythic Arena adapted for Game Park",
   "sideEffects": false,
   "main": "dist/index.js",
@@ -25,5 +25,5 @@
     "@gamepark/rules-api": "~6.29.2",
     "i18next": "^22.0.3"
   },
-  "gitHead": "9f9e9429002bbd5e506465734611996b1b27977f"
+  "gitHead": "21d922d9f0856a518b19bf3d2350bc7cff8a3edb"
 }
