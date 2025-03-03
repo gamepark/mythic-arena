@@ -3,5 +3,6 @@ export enum MaterialType {
   AllegianceToken,
   Power,
   ShatteredShield,
-  GloryPoint
+  GloryPoint,
+  MajorityGloryPoint,
 }

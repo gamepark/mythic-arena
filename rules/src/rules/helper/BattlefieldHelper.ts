@@ -105,7 +105,7 @@ export class BattlefieldHelper extends MaterialRulesPart {
 
   get isComplete() {
     if (this.maxSize > 4) throw new Error("Is complete method must only be called on 4x4 battlefield")
-    return this.battlefield.length > 16
+    return this.battlefield.length === 16
   }
 
   get majorityFor() {

@@ -75,10 +75,8 @@ export class MythicArenaRules extends SecretMaterialRules<PantheonType, Material
   }
 
   getPlayerGlory(pantheon: PantheonType) {
-    return this
-      .material(MaterialType.GloryPoint)
-      .player(pantheon)
-      .getQuantity()
+    const hasMajority = this.material(MaterialType.MajorityGloryPoint).location(LocationType.PlayerMajorityGlory).player(pantheon).length > 0
+    return this.material(MaterialType.GloryPoint).player(pantheon).getQuantity() + (hasMajority? 3: 0)
   }
 
   getPlayerStrength(pantheon: PantheonType) {

@@ -16,6 +16,26 @@ export class MythicArenaSetup extends MaterialGameSetup<PantheonType, MaterialTy
   setupMaterial(_options: MythicArenaOptions) {
     this.setupPlayers()
     this.setupStrengthToken()
+    this.setupMajorityGlory()
+  }
+
+  setupMajorityGlory() {
+    this.material(MaterialType.MajorityGloryPoint)
+      .createItem({
+        id: PantheonType.Greek,
+        location: {
+          type: LocationType.MajorityGloryPoints
+        }
+      })
+
+    this.material(MaterialType.MajorityGloryPoint)
+      .createItem({
+        id: PantheonType.Norse,
+        location: {
+          type: LocationType.MajorityGloryPoints
+        }
+      })
+
   }
 
   setupStrengthToken() {

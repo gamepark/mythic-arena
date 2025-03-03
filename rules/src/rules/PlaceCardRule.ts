@@ -8,18 +8,21 @@ import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
 export class PlaceCardRule extends PlayerTurnRule {
+  onRuleStart() {
+    const handIndex = this.hand.getIndex()
+    if (getCardRule(this.game, handIndex)?.isAutoDiscard) {
+      return this.discardMove
+    }
+
+    return []
+  }
 
   getPlayerMoves() {
     const moves: MaterialMove[] = []
     const hand = this.hand
 
     if (this.canDiscard) {
-      moves.push(
-        hand.moveItem({
-          type: LocationType.PantheonDiscard,
-          player: this.player
-        })
-      )
+      moves.push(...this.discardMove)
     }
 
     for (const space of this.availableSpaces) {
@@ -29,6 +32,16 @@ export class PlaceCardRule extends PlayerTurnRule {
     }
 
     return moves
+  }
+
+  get discardMove() {
+    const hand = this.hand
+    return [
+        hand.moveItem({
+          type: LocationType.PantheonDiscard,
+          player: this.player
+        })
+    ]
   }
 
   get availableSpaces() {

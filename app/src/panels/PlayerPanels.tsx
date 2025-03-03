@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
+import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
 import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
 import { MythicArenaRules } from '@gamepark/mythic-arena/MythicArenaRules'
 import { StyledPlayerPanel, usePlayers, useRules } from '@gamepark/react-game'
@@ -14,18 +15,22 @@ export const PlayerPanels = () => {
     return null
   }
 
+
   return createPortal(
     <>
-      {players.map((player, index) =>
-        <StyledPlayerPanel
-          key={player.id}
-          player={player}
-          css={[panelPosition, index === 0? leftPlayer: rightPlayer]}
-          mainCounter={{
-            image: Glory,
-            value: rules.material(MaterialType.GloryPoint).player(player.id).getQuantity()
-          }}
-        />
+      {players.map((player, index) => {
+        const hasMajority = rules.material(MaterialType.MajorityGloryPoint).location(LocationType.PlayerMajorityGlory).player(player.id).length > 0
+        const score = rules.material(MaterialType.GloryPoint).player(player.id).getQuantity() + (hasMajority? 3: 0)
+          return <StyledPlayerPanel
+            key={player.id}
+            player={player}
+            css={[panelPosition, index === 0 ? leftPlayer : rightPlayer]}
+            mainCounter={{
+              image: Glory,
+              value: score
+            }}
+          />
+        }
       )}
     </>,
     root

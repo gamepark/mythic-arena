@@ -12,5 +12,7 @@ export enum LocationType {
   PowerTokenStock,
   GloryStock,
   PlayerGlory,
-  ShatteredShieldTokenStock
+  ShatteredShieldTokenStock,
+  MajorityGloryPoints,
+  PlayerMajorityGlory
 }

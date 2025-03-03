@@ -12,6 +12,7 @@ export class PlayerGloryLocator extends PileLocator {
     coordinates.y -= pantheonCardDescription.height * 2
     return coordinates
   }
+
 }
 
 export const playerGloryLocator = new PlayerGloryLocator()

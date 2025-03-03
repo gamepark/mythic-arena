@@ -39,7 +39,7 @@ export class PantheonCardRule extends MaterialRulesPart {
     const powerToken = this
       .material(MaterialType.Power)
       .parent(this.index)
-      .location(LocationType.PantheonCardAllegiance)
+      .location(LocationType.PantheonCardPower)
       .length
 
     return basePower + powerToken + this.bonusPower
@@ -59,7 +59,7 @@ export class PantheonCardRule extends MaterialRulesPart {
     return this
       .material(MaterialType.ShatteredShield)
       .parent(this.index)
-      .location(LocationType.PantheonCardAllegiance)
+      .location(LocationType.PantheonCardShatteredShield)
       .locationId(direction)
       .length > 0
   }
@@ -118,5 +118,13 @@ export class PantheonCardRule extends MaterialRulesPart {
 
   get countAs() {
     return 1
+  }
+
+  get isAutoDiscard() {
+    return false
+  }
+
+  get gloryPointBonus() {
+    return 0
   }
 }

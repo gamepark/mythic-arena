@@ -5,7 +5,7 @@ import { LocationDescription, PileLocator } from '@gamepark/react-game'
 export class GloryStockLocator extends PileLocator {
   locationDescription = new GloryStockDescription()
   coordinates = { x: -23, y: -24 }
-  radius = 2
+  radius = 1.5
 }
 
 export class GloryStockDescription extends LocationDescription {

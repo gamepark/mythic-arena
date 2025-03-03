@@ -5,6 +5,7 @@ import { Locator } from '@gamepark/react-game'
 import { allegianceStockLocator } from './AllegianceStockLocator'
 import { battlefieldLocator } from './BattlefieldLocator'
 import { gloryStockLocator } from './GloryStockLocator'
+import { majorityGloryPointLocator } from './MajorityGloryStockLocator'
 import { pantheonCardAllegianceLocator } from './PantheonCardAllegianceLocator'
 import { pantheonCardPowerLocator } from './PantheonCardPowerLocator'
 import { pantheonCardShatteredShieldLocator } from './PantheonCardShatteredShieldLocator'
@@ -12,6 +13,7 @@ import { pantheonDeckLocator } from './PantheonDeckLocator'
 import { pantheonDiscardLocator } from './PantheonDiscardLocator'
 import { playerGloryLocator } from './PlayerGloryLocator'
 import { playerHandLocator } from './PlayerHandLocator'
+import { playerMajorityGloryLocator } from './PlayerMajorityGloryLocator'
 import { playerPowerLocator } from './PlayerPowerLocator'
 import { playerShatteredShieldLocator } from './PlayerShatteredShieldLocator'
 import { powerTokenStockLocator } from './PowerTokenStockLocator'
@@ -31,5 +33,7 @@ export const Locators: Partial<Record<LocationType, Locator<PantheonType, Materi
   [LocationType.PlayerPower]: playerPowerLocator,
   [LocationType.PlayerShatteredShield]: playerShatteredShieldLocator,
   [LocationType.GloryStock]: gloryStockLocator,
-  [LocationType.PlayerGlory]: playerGloryLocator
+  [LocationType.MajorityGloryPoints]: majorityGloryPointLocator,
+  [LocationType.PlayerGlory]: playerGloryLocator,
+  [LocationType.PlayerMajorityGlory]: playerMajorityGloryLocator
 }

@@ -11,13 +11,11 @@ export class EndGameRule extends MaterialRulesPart {
     if (majorityFor !== undefined) {
 
     moves.push(
-      this.material(MaterialType.GloryPoint)
-        .createItem({
-          location: {
-            type: LocationType.PlayerGlory,
+      this.material(MaterialType.MajorityGloryPoint)
+        .id(majorityFor)
+        .moveItem({
+            type: LocationType.PlayerMajorityGlory,
             player: majorityFor
-          },
-          quantity: 3
         })
     )
     }
