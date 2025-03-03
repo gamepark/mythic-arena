@@ -1,5 +1,6 @@
 import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
-import { DropAreaDescription, Locator } from '@gamepark/react-game'
+import { DropAreaDescription, isItemContext, Locator, MaterialContext } from '@gamepark/react-game'
+import { Location } from '@gamepark/rules-api'
 import { pantheonCardDescription } from '../material/PantheonCardDescription'
 
 export class PantheonCardPowerLocator extends Locator {
@@ -7,7 +8,11 @@ export class PantheonCardPowerLocator extends Locator {
   parentItemType = MaterialType.PantheonCard
 
   coordinates = { x: 0, y: 0, z: 0 }
-  positionOnParent = { x: 50, y: 30 }
+
+  getPositionOnParent(location: Location, context: MaterialContext) {
+    if (!isItemContext(context)) return super.getPositionOnParent(location, context)
+    return { x: 50, y: 30 }
+  }
 
 
   getItemRotateZ() {

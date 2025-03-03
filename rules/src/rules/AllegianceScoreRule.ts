@@ -1,6 +1,8 @@
-import { MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { MaterialItem, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
+import isEqual from 'lodash/isEqual'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { PantheonCard } from '../material/PantheonCard'
 import { PantheonType } from '../material/PantheonType'
 import { getCardRule } from './character/card.utils'
 import { BattlefieldHelper } from './helper/BattlefieldHelper'
@@ -10,89 +12,120 @@ import { RuleId } from './RuleId'
 export class AllegianceScoreRule extends PlayerTurnRule {
   onRuleStart() {
     if (new BattlefieldHelper(this.game).isComplete) return [this.startRule(RuleId.EndGame)]
-    if (this.cardAllegiance === undefined || this.placedCard.length === 0) return [this.startRule(RuleId.EndOfTurn)]
     const moves: MaterialMove[] = []
-    moves.push(...this.wonGloryPointMoves)
+    const linesOrColumns: PantheonCard[][] = []
+    if (this.cardAllegiance !== undefined && this.placedCard.length) {
+      this.fillWithCompletedLinesOrColumns(linesOrColumns, this.placedCard.getItem()!)
+    }
+
+    const capturedCoordinates = this.capturedCardCoordinates
+    if (capturedCoordinates.length) {
+      for (const coordinates of capturedCoordinates) {
+        const card = this
+          .material(MaterialType.PantheonCard)
+          .location((l) => l.type === LocationType.Battlefield && l.x === coordinates.x && l.y === coordinates.y)
+          .getItem()!
+        this.fillWithCompletedLinesOrColumns(linesOrColumns, card)
+      }
+    }
+
+    if (linesOrColumns.length) {
+      moves.push(
+        this.material(MaterialType.GloryPoint)
+          .createItem({
+            location: {
+              type: LocationType.PlayerGlory,
+              player: this.player
+            },
+            quantity: linesOrColumns.length
+          })
+      )
+    }
+
+
     moves.push(this.startRule(RuleId.EndOfTurn))
     return moves
   }
 
-  get wonGloryPointMoves() {
-    const placedCard = this.placedCard
-    const { x, y } = placedCard.getItem()!.location
+  fillWithCompletedLinesOrColumns(linesOrColumns: PantheonCard[][], card: MaterialItem) {
+    const { x, y } = card.location
 
-    const verticalAlignment = this.countVerticalAdjacentAllegiance(x!, y!)
-    const horizontalAlignment = this.countHorizontalAdjacentAllegiance(x!, y!)
-    let score = 0
-    if (verticalAlignment === 3) score++
-    if (horizontalAlignment === 3) score++
-    if (score === 0) return []
-    return [
-      this.material(MaterialType.GloryPoint)
-        .createItem({
-          location: {
-            type: LocationType.PlayerGlory,
-            player: this.player
-          }
-        })
-    ]
+    const verticalAlignment = this.getVerticalAdjacentAllegiance(x!, y!)
+    const horizontalAlignment = this.getHorizontalAdjacentAllegiance(x!, y!)
+    const newColumn = [card.id.front, ...verticalAlignment].sort()
+    if (newColumn.length === 3 && !linesOrColumns.some((ids) => isEqual(ids, newColumn))) {
+      linesOrColumns.push(newColumn)
+    }
+
+    const newRow = [card.id.front, ...horizontalAlignment].sort()
+    if (newRow.length === 3 && !linesOrColumns.some((ids) => isEqual(ids, newRow))) {
+      linesOrColumns.push(newRow)
+    }
+
+    return linesOrColumns
   }
 
-  countHorizontalAdjacentAllegiance(x: number, y: number) {
-    let count = 1
+  getHorizontalAdjacentAllegiance(x: number, y: number): PantheonCard[] {
+    let adjacentItems: PantheonCard[] = []
     const boundaries = new BattlefieldHelper(this.game).boundaries
     const allegiance = this.cardAllegiance
     for (let position = x; position >= boundaries.xMin; position--) {
       if (position === x) continue;
-      if (!this.hasSameAllegianceOnRow(y, position, allegiance)) break
-      count++
+      const adjacentItem = this.getItemIfSameAllegianceOnRow(y, position, allegiance)
+      if (adjacentItem === undefined) break
+      adjacentItems.push(adjacentItem.id.front)
     }
 
-    if (count > 3) return count
+    if (adjacentItems.length > 2) return []
 
     for (let position = x; position <= boundaries.xMax; position++) {
       if (position === x) continue;
-      if (!this.hasSameAllegianceOnRow(y, position, allegiance)) break
-      count++
+      const adjacentItem = this.getItemIfSameAllegianceOnRow(y, position, allegiance)
+      if (adjacentItem === undefined) break
+      adjacentItems.push(adjacentItem.id.front)
     }
-    return count
+
+    return adjacentItems.sort()
   }
 
-  countVerticalAdjacentAllegiance(x: number, y: number) {
-    let count = 1
+  getVerticalAdjacentAllegiance(x: number, y: number): PantheonCard[] {
+    let adjacentItems: PantheonCard[] = []
     const boundaries = new BattlefieldHelper(this.game).boundaries
     const allegiance = this.cardAllegiance
     for (let position = y; position >= boundaries.yMin; position--) {
       if (position === y) continue;
-      if (!this.hasSameAllegianceOnColumn(x, position, allegiance)) break
-      count++
+      const adjacentItem = this.getItemIfSameAllegianceOnColumn(x, position, allegiance)
+      if (adjacentItem === undefined) break
+      adjacentItems.push(adjacentItem.id.front)
     }
 
-    if (count > 3) return count
+    if (adjacentItems.length > 2) return []
 
     for (let position = y; position <= boundaries.yMax; position++) {
       if (position === y) continue;
-      if (!this.hasSameAllegianceOnColumn(x, position, allegiance)) break
-      count++
+      if (!this.getItemIfSameAllegianceOnColumn(x, position, allegiance)) break
+      const adjacentItem = this.getItemIfSameAllegianceOnColumn(x, position, allegiance)
+      if (adjacentItem === undefined) break
+      adjacentItems.push(adjacentItem.id.front)
     }
 
-    return count
+    return adjacentItems.sort()
   }
 
-  hasSameAllegianceOnRow(y: number, position: number, allegiance: PantheonType): boolean {
+  getItemIfSameAllegianceOnRow(y: number, position: number, allegiance: PantheonType): MaterialItem | undefined {
     const card = this.material(MaterialType.PantheonCard)
       .location((l) => l.type === LocationType.Battlefield && l.y === y && l.x === position)
-    if (!card.length) return false;
-    return getCardRule(this.game, card.getIndex())?.allegiance === allegiance;
-
+    if (!card.length) return;
+    if (getCardRule(this.game, card.getIndex())?.allegiance === allegiance) return card.getItem()
+    return
   }
 
-  hasSameAllegianceOnColumn(x: number, position: number, allegiance: PantheonType): boolean {
+  getItemIfSameAllegianceOnColumn(x: number, position: number, allegiance: PantheonType): MaterialItem | undefined {
     const card = this.material(MaterialType.PantheonCard)
       .location((l) => l.type === LocationType.Battlefield && l.x === x && l.y === position)
-    if (!card.length) return false;
-    return getCardRule(this.game, card.getIndex())?.allegiance === allegiance;
-
+    if (!card.length) return;
+    if (getCardRule(this.game, card.getIndex())?.allegiance === allegiance) return card.getItem()
+    return
   }
 
   get cardAllegiance() {
@@ -106,5 +139,9 @@ export class AllegianceScoreRule extends PlayerTurnRule {
   get placedCard() {
     return this.material(MaterialType.PantheonCard)
       .index(this.placedCardIndex)
+  }
+
+  get capturedCardCoordinates() {
+    return this.remind<XYCoordinates[]>(Memory.CapturedCoordinates) ?? []
   }
 }

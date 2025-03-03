@@ -75,7 +75,7 @@ const Heracles: PantheonCardCharacteristics = {
 const Helios: PantheonCardCharacteristics = {
   power: 3,
   allegiance: PantheonType.Greek,
-  shieldFor: [Direction.North, Direction.East],
+  shieldFor: [Direction.East, Direction.West],
   fragilityFor: []
 }
 

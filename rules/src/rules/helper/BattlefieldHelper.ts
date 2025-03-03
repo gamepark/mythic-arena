@@ -17,7 +17,6 @@ export class BattlefieldHelper extends MaterialRulesPart {
   }
 
   get availableSpaces() {
-
     const availableSpaces: Location[] = []
     const boundaries = this.boundaries
     let playedCards: MaterialItem[] = []
