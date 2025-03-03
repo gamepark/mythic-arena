@@ -9,10 +9,6 @@ class BattlefieldLocator extends Locator {
   deltaX?: number
   deltaY?: number
 
-  getLocations({ rules }: MaterialContext) {
-    return new BattlefieldHelper(rules.game).availableSpaces
-  }
-
   getCoordinates(location: Location, context: MaterialContext) {
     const { rules } = context
     if (rules.game !== this.game) {

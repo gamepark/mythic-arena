@@ -1519,10 +1519,10 @@
   dependencies:
     prop-types "^15.8.1"
 
-"@gamepark/avataaars@^2.2.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@gamepark/avataaars/-/avataaars-2.3.0.tgz#566536a5ea98ae81d58da5865498302fe41fd6a9"
-  integrity sha512-CuXVZqWCmnKiT3nmf58MSi9xT2kUCi7KwGkX4LryZJ+/vOybg1reDINZJTVl6b+07JVmnD/gwfyXiFv30wd0Bg==
+"@gamepark/avataaars@^2.2.0", "@gamepark/avataaars@~2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@gamepark/avataaars/-/avataaars-2.2.0.tgz#7bc2b8246d847d8f66b67935d0ab247a7cceb477"
+  integrity sha512-3rTwo+v87EO/GHcHjmpTqRcOdbh5MbO2Vv27xIGWdT3H2+SFSGlMwSCnn7kDQv+rQJzfg5C2gRe6XImiKcYlxA==
 
 "@gamepark/react-client@~6.29.3":
   version "6.29.3"
@@ -1536,7 +1536,7 @@
     pusher-js "^7.0.0"
     redux "^4.2.1"
 
-"@gamepark/react-game@~6.29.4":
+"@gamepark/react-game@~6.29.3":
   version "6.29.8"
   resolved "https://registry.yarnpkg.com/@gamepark/react-game/-/react-game-6.29.8.tgz#46b36c5138097683502644fc84f1f21dc8aa32df"
   integrity sha512-/EtfgefALBlTj4Z2W0AYCzZhTGRYQBOXVLcX1sJEosZBSn3lDjXHburSDSz/+2Wa/C0vCzMlUx0ppzAVv9lppQ==
@@ -1568,7 +1568,7 @@
     supports-webp "^3.0.0"
     use-long-press "^3.1.3"
 
-"@gamepark/rules-api@~6.29.2", "@gamepark/rules-api@~6.29.3":
+"@gamepark/rules-api@~6.29.3":
   version "6.29.3"
   resolved "https://registry.yarnpkg.com/@gamepark/rules-api/-/rules-api-6.29.3.tgz#9c1a9c4b12f8f5755a8434bf747a485640f046fd"
   integrity sha512-dYn/dLEn8N70+fC1yPh+cutm78oaLQfCsqFRAumgIesjeFL2h54QMgBJh5+f79E+CXgu7lldQeYM4WP8UQsVfg==
