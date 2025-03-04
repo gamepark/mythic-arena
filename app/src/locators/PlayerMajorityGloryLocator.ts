@@ -5,7 +5,7 @@ import { playerGloryLocator } from './PlayerGloryLocator'
 export class PlayerMajorityGloryLocator extends Locator {
   getCoordinates(location: Location, context: MaterialContext) {
     const coordinates = playerGloryLocator.getCoordinates(location, context)
-    coordinates.x! -= 9
+    coordinates.x! -= 6.7
     return coordinates
   }
 }

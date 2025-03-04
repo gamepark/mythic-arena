@@ -2,10 +2,13 @@
 import { css } from '@emotion/react'
 import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
 import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
+import { PantheonType } from '@gamepark/mythic-arena/material/PantheonType'
 import { MythicArenaRules } from '@gamepark/mythic-arena/MythicArenaRules'
 import { StyledPlayerPanel, usePlayers, useRules } from '@gamepark/react-game'
 import { createPortal } from 'react-dom'
 import Glory from '../images/glory/glory-1.png'
+import Norse from '../images/panel/norse.jpg'
+import Greek from '../images/panel/greek.jpg'
 
 export const PlayerPanels = () => {
   const players = usePlayers({ sortFromMe: true })
@@ -23,6 +26,7 @@ export const PlayerPanels = () => {
         const score = rules.material(MaterialType.GloryPoint).player(player.id).getQuantity() + (hasMajority? 3: 0)
           return <StyledPlayerPanel
             key={player.id}
+            backgroundImage={player.id === PantheonType.Greek? Greek: Norse}
             player={player}
             css={[panelPosition, index === 0 ? leftPlayer : rightPlayer]}
             mainCounter={{

@@ -31,7 +31,7 @@ import { Vali } from './Vali'
 
 export const getCardRule = (game: MaterialGame, cardIndex: number): PantheonCardRule | undefined => {
   const item = game.items[MaterialType.PantheonCard]![cardIndex]
-  if (item.id?.front === undefined) return undefined
+  if (item?.id?.front === undefined) return undefined
   const CardRule = CardRules[item.id.front as PantheonCard]
   if (!CardRule) return new PantheonCardRule(game, cardIndex)
   return new CardRule(game, cardIndex)

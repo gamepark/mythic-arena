@@ -12,7 +12,6 @@ export class BattleResolutionRule extends PlayerTurnRule {
     const cardRule = this.cardRule
     for (const direction of directions) {
       const target = cardRule.getAdjacentInDirection(direction)
-      console.log("Target", direction, target.length)
       if (!target.length) continue
       moves.push(
         ...this.resolveBattleAgainst(target, direction)
@@ -41,7 +40,6 @@ export class BattleResolutionRule extends PlayerTurnRule {
     const oppositeDirection = getOpposite(direction)
 
     if (targetRule.allegiance === this.player) return []
-    console.log("Resolution", direction, target.length, targetRule.allegiance, this.player, cardRule.ignoreShields, targetRule.hasShieldFor(oppositeDirection))
     if (!cardRule.ignoreShields && targetRule.hasShieldFor(oppositeDirection)) return []
 
     const isWin = targetRule.hasFragilityFor(oppositeDirection) || cardRule.power > targetRule.power

@@ -11,8 +11,8 @@ class BattlefieldLocator extends Locator {
   deltaY?: number
 
   getLocations(context: MaterialContext) {
-    const { rules } = context
-    if (rules.game.rule?.id === RuleId.PlaceCard) return new BattlefieldHelper(rules.game).availableSpaces
+    const { rules, player } = context
+    if (rules.game.rule?.id === RuleId.PlaceCard && rules.game.rule?.player === player) return new BattlefieldHelper(rules.game).availableSpaces
     return super.getLocations(context)
 
   }
