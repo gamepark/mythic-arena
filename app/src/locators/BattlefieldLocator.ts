@@ -48,6 +48,7 @@ class BattlefieldLocator extends Locator {
     }
   }
 
+
   locationDescription = new BattlefieldDescription()
 }
 
