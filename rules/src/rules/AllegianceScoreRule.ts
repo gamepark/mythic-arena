@@ -53,11 +53,10 @@ export class AllegianceScoreRule extends PlayerTurnRule {
     let scoring = linesOrColumns.length
 
     for (const indexes of linesOrColumns) {
-      console.log(sum(
+      scoring += sum(
         indexes.map((index) => getCardRule(this.game, index)?.gloryPointBonus)
-      ))
+      )
     }
-
 
     return scoring
   }
@@ -83,7 +82,7 @@ export class AllegianceScoreRule extends PlayerTurnRule {
 
   getHorizontalAdjacentAllegiance(x: number, y: number): number[] {
     let adjacentItems: number[] = []
-    const boundaries = new BattlefieldHelper(this.game).boundaries
+    const boundaries = new BattlefieldHelper(this.game).outerSquareBoundaries
     const allegiance = this.cardAllegiance
     for (let position = x; position >= boundaries.xMin; position--) {
       if (position === x) continue;
@@ -106,7 +105,7 @@ export class AllegianceScoreRule extends PlayerTurnRule {
 
   getVerticalAdjacentAllegiance(x: number, y: number): number[] {
     let adjacentItems: PantheonCard[] = []
-    const boundaries = new BattlefieldHelper(this.game).boundaries
+    const boundaries = new BattlefieldHelper(this.game).outerSquareBoundaries
     const allegiance = this.cardAllegiance
     for (let position = y; position >= boundaries.yMin; position--) {
       if (position === y) continue;

@@ -8,14 +8,6 @@ import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
 export class PlaceCardRule extends PlayerTurnRule {
-  onRuleStart() {
-    const handIndex = this.hand.getIndex()
-    if (getCardRule(this.game, handIndex)?.isAutoDiscard) {
-      return this.discardMove
-    }
-
-    return []
-  }
 
   getPlayerMoves() {
     const moves: MaterialMove[] = []
@@ -23,6 +15,10 @@ export class PlaceCardRule extends PlayerTurnRule {
 
     if (this.canDiscard) {
       moves.push(...this.discardMove)
+      const handIndex = this.hand.getIndex()
+      if (getCardRule(this.game, handIndex)?.isAutoDiscard) {
+        return moves
+      }
     }
 
     for (const space of this.availableSpaces) {
@@ -48,12 +44,12 @@ export class PlaceCardRule extends PlayerTurnRule {
     const hand = this.hand
     const cardRule = getCardRule(this.game, hand.getIndex())
     const canBeFifthCard = cardRule?.canBeFifthCard ?? false
-    const spaces = new BattlefieldHelper(this.game, canBeFifthCard).availableSpaces
+    const spaces = new BattlefieldHelper(this.game).availableSpaces(canBeFifthCard)
 
     if (!canBeFifthCard) return spaces
 
     const battlefield = this.battlefield
-    const littleTableau = new BattlefieldHelper(this.game).availableSpaces
+    const littleTableau = new BattlefieldHelper(this.game).availableSpaces()
     return spaces.filter((space) => {
       const countOnLine = battlefield.filter((item) => item.location.y === space.y).length
       const countOnColumn = battlefield.filter((item) => item.location.x === space.x).length

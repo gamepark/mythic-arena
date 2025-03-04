@@ -5,7 +5,7 @@ import { BattlefieldHelper } from './helper/BattlefieldHelper'
 
 export class EndGameRule extends MaterialRulesPart {
   onRuleStart() {
-    const helper = new BattlefieldHelper(this.game, true)
+    const helper = new BattlefieldHelper(this.game)
     const majorityFor = helper.majorityFor
     const moves: MaterialMove[] = []
     if (majorityFor !== undefined) {
