@@ -56,10 +56,6 @@ class BattlefieldLocator extends Locator {
     }
   }
 
-  getHoverTransform = () => {
-    return ['translateZ(10em)', 'scale(2)']
-  }
-
   locationDescription = new BattlefieldDescription()
 }
 
