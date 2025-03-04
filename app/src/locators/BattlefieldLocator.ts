@@ -1,7 +1,5 @@
-import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
-import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
-import { getCardRule } from '@gamepark/mythic-arena/rules/character/card.utils'
 import { BattlefieldHelper } from '@gamepark/mythic-arena/rules/helper/BattlefieldHelper'
+import { PlaceCardRule } from '@gamepark/mythic-arena/rules/PlaceCardRule'
 import { RuleId } from '@gamepark/mythic-arena/rules/RuleId'
 import { Locator, MaterialContext } from '@gamepark/react-game'
 import { Location, MaterialGame } from '@gamepark/rules-api'
@@ -17,13 +15,7 @@ class BattlefieldLocator extends Locator {
   getLocations(context: MaterialContext) {
     const { rules, player } = context
     if (rules.game.rule?.id === RuleId.PlaceCard && rules.game.rule?.player === player) {
-      const hand = rules
-        .material(MaterialType.PantheonCard)
-        .location(LocationType.PlayerHand)
-        .player(player)
-      const cardRule = getCardRule(rules.game, hand.getIndex())
-      const canBeFifthCard = cardRule?.canBeFifthCard ?? false
-      return new BattlefieldHelper(rules.game).availableSpaces(canBeFifthCard)
+      return new PlaceCardRule(rules.game).availableSpaces
     }
     return super.getLocations(context)
 
