@@ -22,6 +22,11 @@ ReactDOM.render(
       GameSetup={MythicArenaSetup}
       material={Material}
       locators={Locators}
+      theme={{
+        dialog: {
+          backgroundColor: '#e7dcb4'
+        }
+      }}
       animations={gameAnimations}>
       <App/>
     </GameProvider>

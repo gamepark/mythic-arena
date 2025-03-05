@@ -127,4 +127,12 @@ export class PantheonCardRule extends MaterialRulesPart {
   get gloryPointBonus() {
     return 0
   }
+
+  get weakness() {
+    return false
+  }
+
+  get weaknessId(): PantheonCard | undefined {
+    return
+  }
 }

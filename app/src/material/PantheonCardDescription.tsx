@@ -3,7 +3,7 @@ import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
 import { PantheonCard } from '@gamepark/mythic-arena/material/PantheonCard'
 import { PantheonType } from '@gamepark/mythic-arena/material/PantheonType'
 import { CardDescription, ItemContext } from '@gamepark/react-game'
-import { isMoveItemType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
+import { isMoveItemType, MaterialItem, MaterialMove, MaterialMoveBuilder } from '@gamepark/rules-api'
 import Aphrodite from '../images/pantheon/greek/Aphrodite.jpg'
 import Apollon from '../images/pantheon/greek/Apollon.jpg'
 import Ares from '../images/pantheon/greek/Ares.jpg'
@@ -41,6 +41,10 @@ import Tyr from '../images/pantheon/norse/Tyr.jpg'
 import Ull from '../images/pantheon/norse/Ull.jpg'
 import Vali from '../images/pantheon/norse/Vali.jpg'
 import { PantheonCardHelp } from './help/PantheonCardHelp'
+import displayLocationHelp = MaterialMoveBuilder.displayLocationHelp
+import PlayEffectIcon from '../images/icons/place-icon.png'
+import AfterBattleEffectIcon from '../images/icons/after-battle-icon.png'
+import EndEffectIcon from '../images/icons/end-icon.png'
 
 export class PantheonCardDescription extends CardDescription {
   backImages = {
@@ -98,6 +102,19 @@ export class PantheonCardDescription extends CardDescription {
 
   getItemMenu(_item: MaterialItem, _context: ItemContext, _legalMoves: MaterialMove[]) {
     return
+  }
+
+  getImages() {
+    const images = super.getImages()
+    images.push(PlayEffectIcon)
+    images.push(AfterBattleEffectIcon)
+    images.push(EndEffectIcon)
+    return images
+  }
+
+  displayHelp(item: MaterialItem, context: ItemContext) {
+    if (item.location.type === LocationType.PantheonDiscard) return displayLocationHelp({ type: LocationType.PantheonDiscard, player: item.location.player })
+    return super.displayHelp(item, context)
   }
 
   help = PantheonCardHelp
