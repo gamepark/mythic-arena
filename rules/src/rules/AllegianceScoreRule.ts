@@ -12,7 +12,6 @@ import { RuleId } from './RuleId'
 
 export class AllegianceScoreRule extends PlayerTurnRule {
   onRuleStart() {
-    if (new BattlefieldHelper(this.game).isComplete) return [this.startRule(RuleId.EndGame)]
     const moves: MaterialMove[] = []
     const linesOrColumns: number[][] = []
     if (this.cardAllegiance !== undefined && this.placedCard.length) {
@@ -44,6 +43,10 @@ export class AllegianceScoreRule extends PlayerTurnRule {
       )
     }
 
+    if (new BattlefieldHelper(this.game).isComplete) {
+      moves.push(this.startRule(RuleId.EndGame))
+      return moves
+    }
 
     moves.push(this.startRule(RuleId.EndOfTurn))
     return moves

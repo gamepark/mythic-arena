@@ -16,9 +16,9 @@ export class ShatteredShieldTokenDescription extends TokenDescription {
 
   menuAlwaysVisible = true
 
-  getItemMenu(_item: MaterialItem, context: ItemContext, legalMoves: MaterialMove[]) {
+  getItemMenu(item: MaterialItem, context: ItemContext, legalMoves: MaterialMove[]) {
     const takeToken = legalMoves.find((move) => isMoveItemType(MaterialType.ShatteredShield)(move) && move.location.type === LocationType.PlayerShatteredShield)
-    if (takeToken) {
+    if (item.location.type === LocationType.ShatteredShieldTokenStock && takeToken) {
       const quantity = context.rules.material(MaterialType.ShatteredShield).location(LocationType.ShatteredShieldTokenStock).getQuantity()
       console.log(context.displayIndex)
       if (context.displayIndex !== ((quantity ?? 1) - 1)) return

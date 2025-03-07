@@ -16,9 +16,9 @@ export class PowerTokenDescription extends TokenDescription {
 
   menuAlwaysVisible = true
 
-  getItemMenu(_item: MaterialItem, context: ItemContext, legalMoves: MaterialMove[]) {
+  getItemMenu(item: MaterialItem, context: ItemContext, legalMoves: MaterialMove[]) {
     const takeToken = legalMoves.find((move) => isMoveItemType(MaterialType.Power)(move) && move.location.type === LocationType.PlayerPower)
-    if (takeToken) {
+    if (item.location.type === LocationType.PowerTokenStock && takeToken) {
       const quantity = context.rules.material(MaterialType.Power).location(LocationType.PowerTokenStock).getQuantity()
       if (context.displayIndex !== ((quantity ?? 1) - 1)) return
       return (
