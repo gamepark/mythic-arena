@@ -11,7 +11,7 @@ export const AllegianceTokenHelp: FC<MaterialHelpProps> = (props) => {
         {t('allegiance')}
       </h2>
       <p>
-        {t('allegiance.help', { allegiance: t(`pantheon.${item.id}`)})}
+        {t('allegiance.help', { allegiance: t(`player.${item.id}`)})}
       </p>
     </>
   )

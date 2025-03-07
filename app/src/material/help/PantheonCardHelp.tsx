@@ -192,7 +192,7 @@ const getCardEffect = (t: TFunction, game: MaterialGame, index: number) => {
       const otherAllegiance =  pantheons.find((p) => rule?.characteristics.allegiance === rule?.allegiance? p !== rule?.allegiance: p === rule?.allegiance)
       return (
         <EndEffect>
-          <Trans defaults="card.balderapollon" values={{ card: t(`card.${rule?.item.id.front}`), cardAllegiance: t(`pantheon.${rule?.characteristics.allegiance}`), otherAllegiance: t(`pantheon.${otherAllegiance}`)}}/>
+          <Trans defaults="card.balderapollon" values={{ card: t(`card.${rule?.item.id.front}`), cardAllegiance: t(`player.${rule?.characteristics.allegiance}`), otherAllegiance: t(`pantheon.${otherAllegiance}`)}}/>
         </EndEffect>
       )
     case PantheonCard.Njord:
