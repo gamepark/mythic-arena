@@ -3,6 +3,7 @@ import { RuleId } from '@gamepark/mythic-arena/rules/RuleId'
 import { ComponentType } from 'react'
 import { AllegianceScoreHeader } from './AllegianceScoreHeader'
 import { BattleResolutionHeader } from './BattleResolutionHeader'
+import { CaptureHeader } from './CaptureHeader'
 import { HelaHadesHeader } from './HelaHadesHeader'
 import { HeraclesSiegfriedHeader } from './HeraclesSiegfriedHeader'
 import { PlaceHeader } from './PlaceHeader'
@@ -21,5 +22,6 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.AllegianceScore]: AllegianceScoreHeader,
   [RuleId.HelaHades]: HelaHadesHeader,
   [RuleId.HeraclesSiegfried]: HeraclesSiegfriedHeader,
+  [RuleId.CaptureCard]: CaptureHeader,
 
 }

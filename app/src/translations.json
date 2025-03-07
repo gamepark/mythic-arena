@@ -248,6 +248,8 @@
       "header.draw.player": "{player} pioche une carte de son Panthéon",
       "header.helahades": "Placez une carte de <openDiscard>votre défausse</openDiscard> sur {card}",
       "header.helahades.player": "{player} doit placer une carte de sa défausse sur {card}",
+      "header.capture": "Capturez une carte du champ de bataille",
+      "header.capture.player": "{player} doit capturer une carte du champ de bataille",
       "header.heraclessiegfried": "Placez une carte de <openDiscard>votre défausse</openDiscard> dans votre pioche",
       "header.heraclessiegfried.player": "{player} doit placer une carte de sa défausse dans sa pioche",
       "Menu": "Menu",
