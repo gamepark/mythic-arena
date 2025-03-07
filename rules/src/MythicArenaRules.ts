@@ -48,7 +48,8 @@ export class MythicArenaRules extends SecretMaterialRules<PantheonType, Material
       [LocationType.PlayerHand]: new PositiveSequenceStrategy()
     },
     [MaterialType.Power]: {
-      [LocationType.PlayerPower]: new PositiveSequenceStrategy()
+      [LocationType.PlayerPower]: new PositiveSequenceStrategy(),
+      [LocationType.PantheonCardPower]: new PositiveSequenceStrategy()
     },
     [MaterialType.ShatteredShield]: {
       [LocationType.PlayerShatteredShield]: new PositiveSequenceStrategy()

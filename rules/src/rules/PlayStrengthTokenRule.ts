@@ -77,8 +77,8 @@ export class PlayStrengthTokenRule extends PlayerTurnRule {
       tokens.moveItem({
         type: LocationType.PantheonCardPower,
         parent: this.placedCardIndex,
-        id: StrengthType.Power
-      })
+        id: StrengthType.Power,
+      }, 1)
     ]
   }
 
@@ -92,7 +92,7 @@ export class PlayStrengthTokenRule extends PlayerTurnRule {
       id: this.getDirectionWithOrigin(origin, adjacentCardsWithShield.getItem(index)),
       parent: index,
       rotation: StrengthType.ShatteredShield
-    }))
+    }, 1))
   }
 
   get placedCardRule() {
@@ -101,7 +101,8 @@ export class PlayStrengthTokenRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.Power)(move) && !isMoveItemType(MaterialType.ShatteredShield)) return []
+    console.log(this.getPlayerMoves())
     if (!this.getPlayerMoves().length) return [this.startRule(RuleId.BattleResolution)]
-    return [this.startRule(RuleId.BattleResolution)]
+    return []
   }
 }

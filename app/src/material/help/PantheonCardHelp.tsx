@@ -1,27 +1,91 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
+import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
+import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
 import { PantheonCard } from '@gamepark/mythic-arena/material/PantheonCard'
 import { PantheonCardsCharacteristics } from '@gamepark/mythic-arena/material/PantheonCardCharacteristics'
+import { pantheons } from '@gamepark/mythic-arena/material/PantheonType'
+import { MythicArenaRules } from '@gamepark/mythic-arena/MythicArenaRules'
 import { getCardRule } from '@gamepark/mythic-arena/rules/character/card.utils'
-import { MaterialHelpProps, Picture, useGame } from '@gamepark/react-game'
-import { MaterialGame } from '@gamepark/rules-api'
+import { RuleId } from '@gamepark/mythic-arena/rules/RuleId'
+import { MaterialHelpProps, Picture, PlayMoveButton, useLegalMove, useRules, useUndo } from '@gamepark/react-game'
+import { isMoveItemType, LocalMoveType, MaterialGame, MaterialMove, MoveKind } from '@gamepark/rules-api'
 import { TFunction } from 'i18next'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import AfterBattleEffectIcon from '../../images/icons/after-battle-icon.png'
 import EndEffectIcon from '../../images/icons/end-icon.png'
 import PlayEffectIcon from '../../images/icons/place-icon.png'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const PantheonCardHelp: FC<MaterialHelpProps> = (props) => {
-  const { item, itemIndex } = props
+  const { item, itemIndex, closeDialog } = props
   const { t } = useTranslation()
-  const game = useGame<MaterialGame>()!
+  const rules = useRules<MythicArenaRules>()!
+  const {game} = rules
+  const discard = useLegalMove((move) => isMoveItemType(MaterialType.PantheonCard)(move) && move.location.type === LocationType.PantheonDiscard && move.itemIndex === itemIndex)
+  const placeInBattlefield = useLegalMove((move) => rules.game.rule?.id === RuleId.HelaHades && isMoveItemType(MaterialType.PantheonCard)(move) && move.location.type === LocationType.Battlefield && move.itemIndex === itemIndex)
+  const placeOnDeck = useLegalMove((move) => isMoveItemType(MaterialType.PantheonCard)(move) && move.location.type === LocationType.PantheonDeck && move.itemIndex === itemIndex)
+  const addPower = useLegalMove((move) => isMoveItemType(MaterialType.Power)(move) && move.location.type === LocationType.PantheonCardPower && move.location.parent === itemIndex)
+  const shatteredShield = useLegalMove((move) => isMoveItemType(MaterialType.ShatteredShield)(move) && move.location.type === LocationType.PantheonCardShatteredShield && move.location.parent === itemIndex)
+  const capture = useLegalMove((move) => isMoveItemType(MaterialType.AllegianceToken)(move) && (
+    (move.location.type === LocationType.AllegianceStock && rules.material(MaterialType.AllegianceToken).getItem(move.itemIndex)!.location.parent === itemIndex) ||
+    (move.location.type === LocationType.PantheonCardAllegiance && move.location.parent === itemIndex)
+  ))
+
+  const [undo, canUndo] = useUndo()
+  const undoModalPredicate = (move: MaterialMove) => move.kind === MoveKind.LocalMove && move.type === LocalMoveType.DisplayHelp
+  const canUndoDialog = canUndo(undoModalPredicate)
   if (!item.id?.front) return null
   const stats = PantheonCardsCharacteristics[item.id.front as PantheonCard]
   const power = stats?.power
   return (
     <>
+      {canUndoDialog && <FontAwesomeIcon icon={faArrowLeft} css={goBackCss} onClick={() => undo(undoModalPredicate)} />}
       <h2>{t(`card.${item.id.front}`)}</h2>
+      { !!discard && (
+        <p>
+          <PlayMoveButton move={discard} onPlay={closeDialog}>
+            {t('move.discard')}
+          </PlayMoveButton>
+        </p>
+      )}
+      { !!placeOnDeck && (
+        <p>
+          <PlayMoveButton move={placeOnDeck} onPlay={closeDialog}>
+            {t('move.place-on-deck')}
+          </PlayMoveButton>
+        </p>
+      )}
+      { !!capture && (
+        <p>
+          <PlayMoveButton move={capture} onPlay={closeDialog}>
+            {t('move.capture')}
+          </PlayMoveButton>
+        </p>
+      )}
+      { !!addPower && (
+        <p>
+          <PlayMoveButton move={addPower} onPlay={closeDialog}>
+            {t('move.power')}
+          </PlayMoveButton>
+        </p>
+      )}
+      { !!shatteredShield && (
+        <p>
+          <PlayMoveButton move={shatteredShield} onPlay={closeDialog}>
+            {t('move.shattered')}
+          </PlayMoveButton>
+        </p>
+      )}
+      { !!placeInBattlefield && (
+        <p>
+          <PlayMoveButton move={placeInBattlefield} onPlay={closeDialog}>
+            {t('move.place-in-battlefield')}
+          </PlayMoveButton>
+        </p>
+      )}
       <p>
         <Trans
           defaults="card.power"
@@ -127,9 +191,10 @@ const getCardEffect = (t: TFunction, game: MaterialGame, index: number) => {
       )
     case PantheonCard.Balder:
     case PantheonCard.Apollon:
+      const otherAllegiance =  pantheons.find((p) => rule?.characteristics.allegiance === rule?.allegiance? p !== rule?.allegiance: p === rule?.allegiance)
       return (
         <EndEffect>
-          <Trans defaults="card.balderappolon"/>
+          <Trans defaults="card.balderapollon" values={{ card: t(`card.${rule?.item.id.front}`), cardAllegiance: t(`pantheon.${rule?.characteristics.allegiance}`), otherAllegiance: t(`pantheon.${otherAllegiance}`)}}/>
         </EndEffect>
       )
     case PantheonCard.Njord:
@@ -200,4 +265,13 @@ const underlineCss = css`
     padding: 0.3em 0.3em 0.5em 0;
     margin-bottom: 0;
     border-bottom: 0.1em solid gray;
+`
+
+const goBackCss = css`
+  position: absolute;
+  right: 2em;
+  top: 0.4em;
+  cursor: pointer;
+  font-size: 1.2em;
+  z-index: 100;
 `

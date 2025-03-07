@@ -10,12 +10,10 @@ export class TakeDiscardCardRule extends PlayerTurnRule {
   }
 
   getPlayerMoves() {
-    return [
-      this.discard.moveItem({
-        type: LocationType.PantheonDeck,
-        player: this.player
-      })
-    ]
+    return this.discard.moveItems({
+      type: LocationType.PantheonDeck,
+      player: this.player
+    })
   }
 
   afterItemMove(move: MoveItem) {

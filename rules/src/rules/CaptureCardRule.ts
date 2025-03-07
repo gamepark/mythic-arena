@@ -23,13 +23,18 @@ export class CaptureCardRule extends PlayerTurnRule {
     return moves
   }
 
-  afterItemMove(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.AllegianceToken)(move)) return []
-    if (move.location.type === LocationType.PantheonCardAllegiance) {
-      const card = this.material(MaterialType.PantheonCard).index(move.location.parent!)
-      new CaptureHelper(this.game).persistCapturedCardCoordinates(card)
-    }
+  beforeItemMove(move: ItemMove) {
+    if (!isMoveItemType(MaterialType.AllegianceToken)(move) || move.location.type !== LocationType.AllegianceStock) return []
+    const token = this.material(MaterialType.AllegianceToken).getItem(move.itemIndex)!
+    const card = this.material(MaterialType.PantheonCard).index(token.location.parent!)
+    new CaptureHelper(this.game).persistCapturedCardCoordinates(card)
+    return [this.startRule(RuleId.PlayStrengthToken)]
+  }
 
+  afterItemMove(move: ItemMove) {
+    if (!isMoveItemType(MaterialType.AllegianceToken)(move) || move.location.type !== LocationType.PantheonCardAllegiance) return []
+    const card = this.material(MaterialType.PantheonCard).index(move.location.parent!)
+    new CaptureHelper(this.game).persistCapturedCardCoordinates(card)
     return [this.startRule(RuleId.PlayStrengthToken)]
   }
 
