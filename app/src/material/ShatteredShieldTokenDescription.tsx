@@ -1,4 +1,4 @@
-import { faHand } from '@fortawesome/free-solid-svg-icons/faHand'
+import { faHand } from '@fortawesome/free-regular-svg-icons/faHand'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
 import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
@@ -17,14 +17,17 @@ export class ShatteredShieldTokenDescription extends TokenDescription {
   menuAlwaysVisible = true
 
   getItemMenu(_item: MaterialItem, context: ItemContext, legalMoves: MaterialMove[]) {
-    const takeToken = legalMoves.find((move) => isMoveItemType(MaterialType.ShatteredShield)(move) && move.location.type === LocationType.PlayerShatteredShield && move.itemIndex === context.index)
+    const takeToken = legalMoves.find((move) => isMoveItemType(MaterialType.ShatteredShield)(move) && move.location.type === LocationType.PlayerShatteredShield)
     if (takeToken) {
+      const quantity = context.rules.material(MaterialType.ShatteredShield).location(LocationType.ShatteredShieldTokenStock).getQuantity()
+      console.log(context.displayIndex)
+      if (context.displayIndex !== ((quantity ?? 1) - 1)) return
       return (
         <>
           <ItemMenuButton
             move={takeToken}
             radius={2}
-            angle={90}>
+            angle={180}>
             <FontAwesomeIcon icon={faHand}/>
           </ItemMenuButton>
         </>

@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHand } from '@fortawesome/free-solid-svg-icons/faHand'
+import { faHand } from '@fortawesome/free-regular-svg-icons/faHand'
 import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
 import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
 import { ItemContext, ItemMenuButton, TokenDescription } from '@gamepark/react-game'
@@ -17,14 +17,16 @@ export class PowerTokenDescription extends TokenDescription {
   menuAlwaysVisible = true
 
   getItemMenu(_item: MaterialItem, context: ItemContext, legalMoves: MaterialMove[]) {
-    const takeToken = legalMoves.find((move) => isMoveItemType(MaterialType.Power)(move) && move.location.type === LocationType.PlayerPower && move.itemIndex === context.index)
+    const takeToken = legalMoves.find((move) => isMoveItemType(MaterialType.Power)(move) && move.location.type === LocationType.PlayerPower)
     if (takeToken) {
+      const quantity = context.rules.material(MaterialType.Power).location(LocationType.PowerTokenStock).getQuantity()
+      if (context.displayIndex !== ((quantity ?? 1) - 1)) return
       return (
         <>
           <ItemMenuButton
                           move={takeToken}
                           radius={2}
-                          angle={-90}>
+                          angle={180}>
             <FontAwesomeIcon icon={faHand}/>
           </ItemMenuButton>
           </>

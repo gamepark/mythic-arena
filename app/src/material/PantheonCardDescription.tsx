@@ -1,9 +1,12 @@
+import { faTrashCan } from '@fortawesome/free-regular-svg-icons/faTrashCan'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
 import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
 import { PantheonCard } from '@gamepark/mythic-arena/material/PantheonCard'
 import { PantheonType } from '@gamepark/mythic-arena/material/PantheonType'
-import { CardDescription, ItemContext } from '@gamepark/react-game'
+import { CardDescription, ItemContext, ItemMenuButton } from '@gamepark/react-game'
 import { isMoveItemType, MaterialItem, MaterialMove, MaterialMoveBuilder } from '@gamepark/rules-api'
+import { Trans } from 'react-i18next'
 import Aphrodite from '../images/pantheon/greek/Aphrodite.jpg'
 import Apollon from '../images/pantheon/greek/Apollon.jpg'
 import Ares from '../images/pantheon/greek/Ares.jpg'
@@ -100,11 +103,6 @@ export class PantheonCardDescription extends CardDescription {
     return super.canShortClick(move, context)
   }
 
-
-  getItemMenu(_item: MaterialItem, _context: ItemContext, _legalMoves: MaterialMove[]) {
-    return
-  }
-
   getImages() {
     const images = super.getImages()
     images.push(PlayEffectIcon)
@@ -116,6 +114,28 @@ export class PantheonCardDescription extends CardDescription {
   displayHelp(item: MaterialItem, context: ItemContext) {
     if (item.location.type === LocationType.PantheonDiscard) return displayLocationHelp({ type: LocationType.PantheonDiscard, player: item.location.player })
     return super.displayHelp(item, context)
+  }
+
+  menuAlwaysVisible = true
+
+  getItemMenu(_item: MaterialItem, context: ItemContext, legalMoves: MaterialMove[]) {
+    const discard = legalMoves.find((move) => isMoveItemType(MaterialType.PantheonCard)(move) && move.location.type === LocationType.PantheonDiscard && move.itemIndex === context.index)
+    if (discard) {
+      return (
+        <>
+          <ItemMenuButton
+            move={discard}
+            label={<Trans defaults="move.discard"/>}
+            labelPosition={"right"}
+            angle={90}
+          >
+            <FontAwesomeIcon icon={faTrashCan}/>
+          </ItemMenuButton>
+        </>
+      )
+    }
+
+    return
   }
 
   help = PantheonCardHelp
