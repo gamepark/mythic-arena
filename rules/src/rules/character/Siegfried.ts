@@ -4,6 +4,6 @@ import { PantheonCardRule } from './PantheonCardRule'
 
 export class Siegfried extends PantheonCardRule {
   afterCardPlaced(): MaterialMove[] {
-    return [this.startRule(RuleId.TakeDiscardCard)]
+    return [this.startRule(RuleId.HeraclesSiegfried)]
   }
 }

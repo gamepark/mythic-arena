@@ -101,7 +101,6 @@ export class PlayStrengthTokenRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.Power)(move) && !isMoveItemType(MaterialType.ShatteredShield)) return []
-    console.log(this.getPlayerMoves())
     if (!this.getPlayerMoves().length) return [this.startRule(RuleId.BattleResolution)]
     return []
   }

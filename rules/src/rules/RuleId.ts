@@ -8,7 +8,7 @@ export enum RuleId {
   PostBattleEffect,
   AllegianceScore,
   EndOfTurn,
-  TakeDiscardCard,
+  HeraclesSiegfried,
   CaptureCard,
   HelaHades,
   EndGame

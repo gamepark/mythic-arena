@@ -12,7 +12,6 @@ export class PantheonCardPowerLocator extends Locator {
   getPositionOnParent(location: Location, context: MaterialContext) {
     if (!isItemContext(context)) return super.getPositionOnParent(location, context)
     const count = this.countItems(location, context)
-    console.log("Count", count)
     const baseX = 50 - ((count - 1) * 10 )
     return { x: baseX + 20   * location.x!, y: 30 }
   }

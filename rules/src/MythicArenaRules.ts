@@ -35,7 +35,7 @@ export class MythicArenaRules extends SecretMaterialRules<PantheonType, Material
     [RuleId.PostBattleEffect]: PostBattleEffectRule,
     [RuleId.AllegianceScore]: AllegianceScoreRule,
     [RuleId.EndOfTurn]: EndOfTurnRule,
-    [RuleId.TakeDiscardCard]: TakeDiscardCardRule,
+    [RuleId.HeraclesSiegfried]: TakeDiscardCardRule,
     [RuleId.CaptureCard]: CaptureCardRule,
     [RuleId.HelaHades]: HelaHadesRule,
     [RuleId.EndGame]: EndGameRule

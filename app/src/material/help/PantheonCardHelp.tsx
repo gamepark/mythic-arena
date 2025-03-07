@@ -95,9 +95,7 @@ export const PantheonCardHelp: FC<MaterialHelpProps> = (props) => {
 
         />
       </p>
-      <p>
-        {getCardEffect(t, game, itemIndex!)}
-      </p>
+      {getCardEffect(t, game, itemIndex!)}
     </>
   )
 }
