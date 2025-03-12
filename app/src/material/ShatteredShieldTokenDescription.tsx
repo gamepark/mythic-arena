@@ -20,7 +20,6 @@ export class ShatteredShieldTokenDescription extends TokenDescription {
     const takeToken = legalMoves.find((move) => isMoveItemType(MaterialType.ShatteredShield)(move) && move.location.type === LocationType.PlayerShatteredShield)
     if (item.location.type === LocationType.ShatteredShieldTokenStock && takeToken) {
       const quantity = context.rules.material(MaterialType.ShatteredShield).location(LocationType.ShatteredShieldTokenStock).getQuantity()
-      console.log(context.displayIndex)
       if (context.displayIndex !== ((quantity ?? 1) - 1)) return
       return (
         <>
