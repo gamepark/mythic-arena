@@ -1,3 +1,4 @@
+import { faHand } from '@fortawesome/free-regular-svg-icons/faHand'
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons/faTrashCan'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
@@ -7,6 +8,9 @@ import { PantheonType } from '@gamepark/mythic-arena/material/PantheonType'
 import { CardDescription, ItemContext, ItemMenuButton } from '@gamepark/react-game'
 import { isMoveItemType, MaterialItem, MaterialMove, MaterialMoveBuilder } from '@gamepark/rules-api'
 import { Trans } from 'react-i18next'
+import AfterBattleEffectIcon from '../images/icons/after-battle-icon.png'
+import EndEffectIcon from '../images/icons/end-icon.png'
+import PlayEffectIcon from '../images/icons/place-icon.png'
 import Aphrodite from '../images/pantheon/greek/Aphrodite.jpg'
 import Apollon from '../images/pantheon/greek/Apollon.jpg'
 import Ares from '../images/pantheon/greek/Ares.jpg'
@@ -45,9 +49,6 @@ import Ull from '../images/pantheon/norse/Ull.jpg'
 import Vali from '../images/pantheon/norse/Vali.jpg'
 import { PantheonCardHelp } from './help/PantheonCardHelp'
 import displayLocationHelp = MaterialMoveBuilder.displayLocationHelp
-import PlayEffectIcon from '../images/icons/place-icon.png'
-import AfterBattleEffectIcon from '../images/icons/after-battle-icon.png'
-import EndEffectIcon from '../images/icons/end-icon.png'
 
 export class PantheonCardDescription extends CardDescription {
   backImages = {
@@ -130,6 +131,26 @@ export class PantheonCardDescription extends CardDescription {
             angle={90}
           >
             <FontAwesomeIcon icon={faTrashCan}/>
+          </ItemMenuButton>
+        </>
+      )
+    }
+
+    const capture = legalMoves.find((move) => isMoveItemType(MaterialType.AllegianceToken)(move)
+      && (
+        move.location.type === LocationType.PantheonCardAllegiance && move.location.parent === context.index ||
+          move.location.type === LocationType.AllegianceStock && context.rules.material(MaterialType.AllegianceToken).getItem(move.itemIndex).location.parent === context.index
+      ))
+    if (capture) {
+      return (
+        <>
+          <ItemMenuButton
+            move={capture}
+            radius={2}
+            labelPosition="right"
+            label={<Trans defaults="move.capture"/>}
+            angle={-70}>
+            <FontAwesomeIcon icon={faHand}/>
           </ItemMenuButton>
         </>
       )

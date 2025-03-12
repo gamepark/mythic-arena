@@ -18,6 +18,8 @@ import EndEffectIcon from '../../images/icons/end-icon.png'
 import PlayEffectIcon from '../../images/icons/place-icon.png'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { powerTokenDescription } from '../PowerTokenDescription'
+import { shatteredShieldTokenDescription } from '../ShatteredShieldTokenDescription'
 
 export const PantheonCardHelp: FC<MaterialHelpProps> = (props) => {
   const { item, itemIndex, closeDialog } = props
@@ -254,7 +256,9 @@ export const alignIcon = css`
 export const IconsMini = {
   'play': <Picture css={alignIcon} src={PlayEffectIcon}/>,
   'afterbattle': <Picture css={alignIcon} src={AfterBattleEffectIcon}/>,
-  'end': <Picture css={alignIcon} src={EndEffectIcon}/>
+  'end': <Picture css={alignIcon} src={EndEffectIcon}/>,
+  'shattered': <Picture css={alignIcon} src={shatteredShieldTokenDescription.image}/>,
+  'power': <Picture css={alignIcon} src={powerTokenDescription.image}/>,
 }
 
 const underlineCss = css`

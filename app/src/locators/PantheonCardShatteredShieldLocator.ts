@@ -1,5 +1,5 @@
 import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
-import { DropAreaDescription, Locator } from '@gamepark/react-game'
+import { DropAreaDescription, isItemContext, Locator, MaterialContext } from '@gamepark/react-game'
 import { Direction, Location, MaterialItem } from '@gamepark/rules-api'
 import { pantheonCardDescription } from '../material/PantheonCardDescription'
 
@@ -9,7 +9,8 @@ export class PantheonCardShatteredShieldLocator extends Locator {
 
   coordinates = { x: 0, y: 0, z: 0 }
 
-  getPositionOnParent(location: Location) {
+  getPositionOnParent(location: Location, context: MaterialContext) {
+    if (!isItemContext(context)) return super.getPositionOnParent(location, context)
     if (location.id === Direction.North) return { x: 50, y: 10 }
     if (location.id === Direction.South) return { x: 50, y: 90 }
     if (location.id === Direction.East) return { x: 90, y: 35 }
