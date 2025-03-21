@@ -11,11 +11,11 @@ export class PantheonCardShatteredShieldLocator extends Locator {
 
   getPositionOnParent(location: Location, context: MaterialContext) {
     if (!isItemContext(context)) return super.getPositionOnParent(location, context)
-    if (location.id === Direction.North) return { x: 50, y: 10 }
-    if (location.id === Direction.South) return { x: 50, y: 90 }
-    if (location.id === Direction.East) return { x: 90, y: 35 }
-    if (location.id === Direction.West) return { x: 10, y: 35 }
-    return { x: 50, y: 63 }
+    if (location.id === Direction.North) return { x: 50, y: 10, z: 0.2 }
+    if (location.id === Direction.South) return { x: 50, y: 90, z: 0.2 }
+    if (location.id === Direction.East) return { x: 90, y: 35, z: 0.2 }
+    if (location.id === Direction.West) return { x: 10, y: 35, z: 0.2 }
+    return { x: 50, y: 63, z: 0.2 }
   }
 
   getItemRotateZ(item: MaterialItem) {
