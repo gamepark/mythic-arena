@@ -1,4 +1,4 @@
-import { DeckLocator, MaterialContext } from '@gamepark/react-game'
+import { DeckLocator, ItemContext, MaterialContext } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 
 class PantheonDeckLocator extends DeckLocator {
@@ -11,7 +11,10 @@ class PantheonDeckLocator extends DeckLocator {
     return { x: 29, y: 20, z: 0 }
   }
 
-  navigationSorts = []
+  getNavigationSorts(context: ItemContext) {
+    if (context.rules.game.rule !== undefined) return []
+    return super.getNavigationSorts(context)
+  }
 }
 
 export const pantheonDeckLocator = new PantheonDeckLocator()
