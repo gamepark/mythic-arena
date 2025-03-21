@@ -44,11 +44,11 @@ export const PantheonCardHelp: FC<MaterialHelpProps> = (props) => {
   if (item.location?.type === LocationType.PantheonDeck) {
     return (
       <>
-        <h2>{t('help.deck')}</h2>
+        <h2>{t('help.deck', { player: name })}</h2>
         <p>
           <Trans defaults="help.deck.count" values={{
             player: name,
-            number: rules.material(MaterialType.PantheonCard).location(LocationType.PantheonDeck).player(item.location.player)
+            number: rules.material(MaterialType.PantheonCard).location(LocationType.PantheonDeck).player(item.location.player).length
           }}/>
         </p>
       </>
