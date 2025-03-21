@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
 import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
 import { PantheonCard } from '@gamepark/mythic-arena/material/PantheonCard'
@@ -8,7 +10,7 @@ import { pantheons } from '@gamepark/mythic-arena/material/PantheonType'
 import { MythicArenaRules } from '@gamepark/mythic-arena/MythicArenaRules'
 import { getCardRule } from '@gamepark/mythic-arena/rules/character/card.utils'
 import { RuleId } from '@gamepark/mythic-arena/rules/RuleId'
-import { MaterialHelpProps, Picture, PlayMoveButton, useLegalMove, useRules, useUndo } from '@gamepark/react-game'
+import { MaterialHelpProps, Picture, PlayMoveButton, useLegalMove, usePlayerName, useRules, useUndo } from '@gamepark/react-game'
 import { isMoveItemType, LocalMoveType, MaterialGame, MaterialMove, MoveKind } from '@gamepark/rules-api'
 import { TFunction } from 'i18next'
 import { FC } from 'react'
@@ -16,8 +18,6 @@ import { Trans, useTranslation } from 'react-i18next'
 import AfterBattleEffectIcon from '../../images/icons/after-battle-icon.png'
 import EndEffectIcon from '../../images/icons/end-icon.png'
 import PlayEffectIcon from '../../images/icons/place-icon.png'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { powerTokenDescription } from '../PowerTokenDescription'
 import { shatteredShieldTokenDescription } from '../ShatteredShieldTokenDescription'
 
@@ -25,7 +25,7 @@ export const PantheonCardHelp: FC<MaterialHelpProps> = (props) => {
   const { item, itemIndex, closeDialog } = props
   const { t } = useTranslation()
   const rules = useRules<MythicArenaRules>()!
-  const {game} = rules
+  const { game } = rules
   const discard = useLegalMove((move) => isMoveItemType(MaterialType.PantheonCard)(move) && move.location.type === LocationType.PantheonDiscard && move.itemIndex === itemIndex)
   const placeInBattlefield = useLegalMove((move) => rules.game.rule?.id === RuleId.HelaHades && isMoveItemType(MaterialType.PantheonCard)(move) && move.location.type === LocationType.Battlefield && move.itemIndex === itemIndex)
   const placeOnDeck = useLegalMove((move) => isMoveItemType(MaterialType.PantheonCard)(move) && move.location.type === LocationType.PantheonDeck && move.itemIndex === itemIndex)
@@ -36,52 +36,67 @@ export const PantheonCardHelp: FC<MaterialHelpProps> = (props) => {
     (move.location.type === LocationType.PantheonCardAllegiance && move.location.parent === itemIndex)
   ))
 
+  const name = usePlayerName(item?.location?.player)
+
   const [undo, canUndo] = useUndo()
   const undoModalPredicate = (move: MaterialMove) => move.kind === MoveKind.LocalMove && move.type === LocalMoveType.DisplayHelp
   const canUndoDialog = canUndo(undoModalPredicate)
+  if (item.location?.type === LocationType.PantheonDeck) {
+    return (
+      <>
+        <h2>{t('help.deck')}</h2>
+        <p>
+          <Trans defaults="help.deck.count" values={{
+            player: name,
+            number: rules.material(MaterialType.PantheonCard).location(LocationType.PantheonDeck).player(item.location.player)
+          }}/>
+        </p>
+      </>
+    )
+  }
   if (!item.id?.front) return null
   const stats = PantheonCardsCharacteristics[item.id.front as PantheonCard]
   const power = stats?.power
   return (
     <>
-      {canUndoDialog && <FontAwesomeIcon icon={faArrowLeft} css={goBackCss} onClick={() => undo(undoModalPredicate)} />}
+      {canUndoDialog && <FontAwesomeIcon icon={faArrowLeft} css={goBackCss} onClick={() => undo(undoModalPredicate)}/>}
       <h2>{t(`card.${item.id.front}`)}</h2>
-      { !!discard && (
+      {!!discard && (
         <p>
           <PlayMoveButton move={discard} onPlay={closeDialog}>
             {t('move.discard')}
           </PlayMoveButton>
         </p>
       )}
-      { !!placeOnDeck && (
+      {!!placeOnDeck && (
         <p>
           <PlayMoveButton move={placeOnDeck} onPlay={closeDialog}>
             {t('move.place-on-deck')}
           </PlayMoveButton>
         </p>
       )}
-      { !!capture && (
+      {!!capture && (
         <p>
           <PlayMoveButton move={capture} onPlay={closeDialog}>
             {t('move.capture')}
           </PlayMoveButton>
         </p>
       )}
-      { !!addPower && (
+      {!!addPower && (
         <p>
           <PlayMoveButton move={addPower} onPlay={closeDialog}>
             {t('move.power')}
           </PlayMoveButton>
         </p>
       )}
-      { !!shatteredShield && (
+      {!!shatteredShield && (
         <p>
           <PlayMoveButton move={shatteredShield} onPlay={closeDialog}>
             {t('move.shattered')}
           </PlayMoveButton>
         </p>
       )}
-      { !!placeInBattlefield && (
+      {!!placeInBattlefield && (
         <p>
           <PlayMoveButton move={placeInBattlefield} onPlay={closeDialog}>
             {t('move.place-in-battlefield')}
@@ -191,10 +206,14 @@ const getCardEffect = (t: TFunction, game: MaterialGame, index: number) => {
       )
     case PantheonCard.Balder:
     case PantheonCard.Apollon:
-      const otherAllegiance =  pantheons.find((p) => rule?.characteristics.allegiance === rule?.allegiance? p !== rule?.allegiance: p === rule?.allegiance)
+      const otherAllegiance = pantheons.find((p) => rule?.characteristics.allegiance === rule?.allegiance ? p !== rule?.allegiance : p === rule?.allegiance)
       return (
         <EndEffect>
-          <Trans defaults="card.balderapollon" values={{ card: t(`card.${rule?.item.id.front}`), cardAllegiance: t(`player.${rule?.characteristics.allegiance}`), otherAllegiance: t(`pantheon.${otherAllegiance}`)}}/>
+          <Trans defaults="card.balderapollon" values={{
+            card: t(`card.${rule?.item.id.front}`),
+            cardAllegiance: t(`player.${rule?.characteristics.allegiance}`),
+            otherAllegiance: t(`pantheon.${otherAllegiance}`)
+          }}/>
         </EndEffect>
       )
     case PantheonCard.Njord:
@@ -258,7 +277,7 @@ export const IconsMini = {
   'afterbattle': <Picture css={alignIcon} src={AfterBattleEffectIcon}/>,
   'end': <Picture css={alignIcon} src={EndEffectIcon}/>,
   'shattered': <Picture css={alignIcon} src={shatteredShieldTokenDescription.image}/>,
-  'power': <Picture css={alignIcon} src={powerTokenDescription.image}/>,
+  'power': <Picture css={alignIcon} src={powerTokenDescription.image}/>
 }
 
 const underlineCss = css`
@@ -270,10 +289,10 @@ const underlineCss = css`
 `
 
 const goBackCss = css`
-  position: absolute;
-  right: 2em;
-  top: 0.4em;
-  cursor: pointer;
-  font-size: 1.2em;
-  z-index: 100;
+    position: absolute;
+    right: 2em;
+    top: 0.4em;
+    cursor: pointer;
+    font-size: 1.2em;
+    z-index: 100;
 `
