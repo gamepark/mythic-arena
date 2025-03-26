@@ -13,24 +13,7 @@ import { IconsMini } from '../material/help/PantheonCardHelp'
 import { me, opponent, TutorialSetup } from './TutorialSetup'
 import startRule = MaterialMoveBuilder.startRule
 
-/**const florianAvatar: AvatarProps = {
- topType: TopType.NoHair,
- facialHairType: FacialHairType.BeardLight,
- clotheColor: '#000000',
- clotheType: ClotheType.ShirtVNeck,
- eyebrowType: EyebrowType.UpDown,
- mouthType: MouthType.Twinkle,
- skinColor: SkinColor.Light
- }
 
- const celineAvatar: AvatarProps = {
- topType: TopType.LongHairCurvy,
- hatColor: '#724133FF',
- clotheColor: '#000000',
- clotheType: ClotheType.ShirtVNeck,
- mouthType: MouthType.Smile,
- skinColor: SkinColor.Light
- }*/
 const BaseComponents = {
   bold: <strong/>,
   italic: <em/>,
