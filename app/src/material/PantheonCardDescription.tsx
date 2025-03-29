@@ -1,6 +1,6 @@
 import { faHand } from '@fortawesome/free-regular-svg-icons/faHand'
-import { faTrashCan } from '@fortawesome/free-regular-svg-icons/faTrashCan'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashCan } from '@fortawesome/free-regular-svg-icons/faTrashCan'
 import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
 import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
 import { PantheonCard } from '@gamepark/mythic-arena/material/PantheonCard'
