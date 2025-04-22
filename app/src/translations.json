@@ -246,7 +246,9 @@
       "time.wait.max": "Maximum down time",
       "time.awaited": "Made others wait (average)",
       "tuto.over": "Congratulations, you've completed the tutorial!\r\nReady to play with other players?",
-      "quantity.tooltip": "Quantity: {n}"
+      "quantity.tooltip": "Quantity: {n}",
+      "history.game.start": "Start of the game",
+      "history.game.over": "End of the game"
     }
   },
   "fr": {
@@ -357,7 +359,7 @@
       "tuto.welcome": "Bienvenue dans le tutoriel de <bold>Mythic Arena</bold> !",
       "tuto.pantheon": "Dans ce jeu, les panthéons Grecs et Nordiques s'affrontent sur le champ de bataille.",
       "tuto.glory": "Voici les <bold>points de Gloire</bold>. Vous gagnez si vous en avez plus que votre adversaire à la fin de la partie.",
-      "tuto.deck": "Voici vos cartes. Dans cette partie, vous jouez le panthéon Grec.\n<italic>Les deux joueurs ont des cartes au mêmes effets. Seuls les noms de cartes changent.</italic>",
+      "tuto.deck": "Voici vos cartes. Dans cette partie, vous jouez le panthéon Grec.\n<italic>Les deux joueurs ont des cartes aux mêmes effets. Seuls les noms de cartes changent.</italic>",
       "tuto.draw": "Au début de votre tour, vous commencez par piocher une carte.\nIci, vous avez pioché <bold>Asclépios</bold>.\n\nVous pourriez défausser cette carte pour jouer la prochaine carte de votre pioche, mais vous décidez de garder <bold>Asclépios</bold>.",
       "tuto.asclepios": "Placez <bold>Asclépios</bold> sur le champ de bataille, au milieu de la table.",
       "tuto.asclepios.effect": "<bold>Asclépios</bold> a un effet : vous prenez <bold>2 jetons Puissance</bold>.\n\nPrenez un jeton <power />, puis un jeton <shattered />.\nIls vous serviront plus tard.",
@@ -380,7 +382,7 @@
       "tuto.aphrodite.fragility": "Posez <bold>Aphrodite</bold> ici. <bold>Aphrodite</bold> est plus faible que <bold>Nerthus</bold>, mais comme <bold>Nerthus</bold> a une fragilité elle sera capturé quand même !",
       "tuto.aphrodite.power": "<bold>Aphrodite</bold> a un pouvoir de pose : vous pouvez capturez la carte de votre choix !\nUtilisez son pouvoir pour capturer <bold>Asclépios</bold>.",
       "tuto.battle": "Cliquez sur le bouton <battle>déclencher la bataille</battle>.",
-      "tuto.alignement": "Vous avez créé un alignement d'exactement 3 cartes de votre allégence !\nÀ chaque fois qu'un joueur crée un tel alignement, <bold>il gagne 1 point de Gloire</bold>.\n<italic>vous ne marquez pas de points si vous créez un alignement de 4 cartes de votre allégeance.</italic>",
+      "tuto.alignement": "Vous avez créé un alignement d'exactement 3 cartes de votre allégence !\nÀ chaque fois qu'un joueur crée un tel alignement, <bold>il gagne 1 point de Gloire</bold>.\n<italic>Vous ne marquez pas de points si vous créez un alignement de 4 cartes de votre allégeance.</italic>",
       "tuto.battlefield": "La partie se poursuit ainsi jusqu'à ce que le champ de bataille, un carré de 4 par 4 cartes, soit complété.",
       "tuto.end": "À la fin de la partie, le joueur ayant <bold>le plus de symboles d'allégence visibles</bold> gagne 3 points de Gloire supplémentaire.\nEnfin, <bold>le joueur qui a le plus de points de Gloire l'emporte.</bold>",
       "tuto.summary": "Il y a 3 types d'effet sur les cartes :\n<play/> Effet de pose\n<afterbattle/> Effet post-bataille\n<end/> Effet de fin de partie\nÀ tout moment, vous pouvez <bold>cliquer sur une carte pour découvrir son effet</bold>.",
@@ -467,7 +469,7 @@
       "Ranking": "Classement",
       "result.comp.victory": "Bravo, vous remportez la partie !",
       "result.comp.winner": "{player} remporte la partie",
-      "result.comp.tie.you": "Égalité ! Vous partagez la victoire avec {tied, plural, one{# autre joueur} other{#autres joueurs}}.",
+      "result.comp.tie.you": "Égalité ! Vous partagez la victoire avec {tied, plural, one{# autre joueur} other{# autres joueurs}}.",
       "result.comp.tie.other": "Égalité ! {tied} joueurs partagent la victoire.",
       "result.comp.tie.all": "Égalité ! Les joueurs partagent la victoire.",
       "result.score.victory": "Bravo, vous remportez la partie avec {score, plural, one{# point} other{# points}} !",
@@ -496,7 +498,9 @@
       "time.wait.max": "Temps d’attente maximum",
       "time.awaited": "A fait attendre les autres (moyenne)",
       "tuto.over": "Félicitations, vous avez terminé le tutoriel !\nPrêt⸱e à jouer avec d’autres joueurs ?",
-      "quantity.tooltip": "Quantité : {n}"
+      "quantity.tooltip": "Quantité : {n}",
+      "history.game.start": "Début de la partie",
+      "history.game.over": "Fin de la partie"
     }
   },
   "es": {
