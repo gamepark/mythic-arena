@@ -31,7 +31,7 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
   }
 
   players = [
-    { id: me, name: 'Greeky' },
+    { id: me },
     { id: opponent, name: 'Norsy' }
   ]
   setup = new TutorialSetup()
