@@ -697,7 +697,7 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": "npm:^7.3.0"
     "@fortawesome/free-solid-svg-icons": "npm:^7.3.0"
     "@fortawesome/react-fontawesome": "npm:^3.4.0"
-    "@gamepark/react-game": "npm:~7.7.36"
+    "@gamepark/react-game": "npm:~7.7.39"
     "@gamepark/rules-api": "npm:~7.6.4"
     "@types/node": "npm:^26.1.1"
     "@types/react": "npm:^19.2.17"
@@ -761,7 +761,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gamepark/react-game@npm:~7.7.36":
+"@gamepark/react-game@npm:~7.7.39":
   version: 7.7.39
   resolution: "@gamepark/react-game@npm:7.7.39"
   dependencies:
