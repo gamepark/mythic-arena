@@ -1,6 +1,6 @@
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
-import { PantheonCard } from '../../material/PantheonCard'
+import { PantheonCard, PantheonCardId } from '../../material/PantheonCard'
 import { PantheonCardRule } from './PantheonCardRule'
 
 export class Njord extends PantheonCardRule {
@@ -12,7 +12,7 @@ export class Njord extends PantheonCardRule {
 
   get weakness() {
     return this.battlefield
-      .id(({ front }: any) => this.weaknessId === front)
+      .id(({ front }: PantheonCardId) => this.weaknessId === front)
       .length > 0
   }
 

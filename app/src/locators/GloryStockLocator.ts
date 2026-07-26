@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
 import { LocationDescription, PileLocator } from '@gamepark/react-game'
 

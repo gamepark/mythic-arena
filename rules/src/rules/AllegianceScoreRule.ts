@@ -1,6 +1,5 @@
 import { Material, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
-import isEqual from 'lodash/isEqual'
-import sum from 'lodash/sum'
+import { isEqual, sum } from 'es-toolkit'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { PantheonCard } from '../material/PantheonCard'
@@ -57,7 +56,7 @@ export class AllegianceScoreRule extends PlayerTurnRule {
 
     for (const indexes of linesOrColumns) {
       scoring += sum(
-        indexes.map((index) => getCardRule(this.game, index)?.gloryPointBonus)
+        indexes.map((index) => getCardRule(this.game, index)?.gloryPointBonus ?? 0)
       )
     }
 
@@ -84,7 +83,7 @@ export class AllegianceScoreRule extends PlayerTurnRule {
   }
 
   getHorizontalAdjacentAllegiance(x: number, y: number): number[] {
-    let adjacentItems: number[] = []
+    const adjacentItems: number[] = []
     const boundaries = new BattlefieldHelper(this.game).outerSquareBoundaries
     const allegiance = this.cardAllegiance
     for (let position = x; position >= boundaries.xMin; position--) {
@@ -107,7 +106,7 @@ export class AllegianceScoreRule extends PlayerTurnRule {
   }
 
   getVerticalAdjacentAllegiance(x: number, y: number): number[] {
-    let adjacentItems: PantheonCard[] = []
+    const adjacentItems: PantheonCard[] = []
     const boundaries = new BattlefieldHelper(this.game).outerSquareBoundaries
     const allegiance = this.cardAllegiance
     for (let position = y; position >= boundaries.yMin; position--) {

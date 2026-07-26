@@ -126,7 +126,7 @@ export class PantheonCardDescription extends CardDescription {
         <>
           <ItemMenuButton
             move={discard}
-            label={<Trans defaults="move.discard"/>}
+            label={<Trans i18nKey="move.discard"/>}
             labelPosition={"right"}
             angle={90}
           >
@@ -148,7 +148,7 @@ export class PantheonCardDescription extends CardDescription {
             move={capture}
             radius={2}
             labelPosition="right"
-            label={<Trans defaults="move.capture"/>}
+            label={<Trans i18nKey="move.capture"/>}
             angle={-70}>
             <FontAwesomeIcon icon={faHand}/>
           </ItemMenuButton>

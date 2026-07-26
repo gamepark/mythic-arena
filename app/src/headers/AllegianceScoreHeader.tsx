@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
 import { MythicArenaRules } from '@gamepark/mythic-arena/MythicArenaRules'
 import { useAnimation, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
@@ -16,12 +15,12 @@ export const AllegianceScoreHeader = () => {
 
   if (me === activePlayer) {
     return (
-      <Trans defaults="header.glory" values={{ count: won }}/>
+      <Trans i18nKey="header.glory" values={{ count: won }}/>
     )
   }
 
   return (
-    <Trans defaults="header.glory.player" values={{ player, count: won }}/>
+    <Trans i18nKey="header.glory.player" values={{ player, count: won }}/>
   )
 
 }

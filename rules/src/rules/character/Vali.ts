@@ -1,6 +1,6 @@
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
-import { PantheonCard } from '../../material/PantheonCard'
+import { PantheonCard, PantheonCardId } from '../../material/PantheonCard'
 import { PantheonCardRule } from './PantheonCardRule'
 
 export class Vali extends PantheonCardRule {
@@ -13,7 +13,7 @@ export class Vali extends PantheonCardRule {
   get effectCard() {
     return this.material(MaterialType.PantheonCard)
       .location(LocationType.Battlefield)
-      .id(({ front }: any) => front === this.cardId)
+      .id(({ front }: PantheonCardId) => front === this.cardId)
   }
 
   get cardId() {

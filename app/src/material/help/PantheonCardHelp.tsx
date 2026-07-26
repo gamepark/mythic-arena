@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,16 +9,12 @@ import { pantheons } from '@gamepark/mythic-arena/material/PantheonType'
 import { MythicArenaRules } from '@gamepark/mythic-arena/MythicArenaRules'
 import { getCardRule } from '@gamepark/mythic-arena/rules/character/card.utils'
 import { RuleId } from '@gamepark/mythic-arena/rules/RuleId'
-import { MaterialHelpProps, Picture, PlayMoveButton, useLegalMove, usePlayerName, useRules, useUndo } from '@gamepark/react-game'
+import { MaterialHelpProps, PlayMoveButton, useLegalMove, usePlayerName, useRules, useUndo } from '@gamepark/react-game'
 import { isMoveItemType, LocalMoveType, MaterialGame, MaterialMove, MoveKind } from '@gamepark/rules-api'
 import { TFunction } from 'i18next'
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import AfterBattleEffectIcon from '../../images/icons/after-battle-icon.png'
-import EndEffectIcon from '../../images/icons/end-icon.png'
-import PlayEffectIcon from '../../images/icons/place-icon.png'
-import { powerTokenDescription } from '../PowerTokenDescription'
-import { shatteredShieldTokenDescription } from '../ShatteredShieldTokenDescription'
+import { IconsMini } from './IconsMini'
 
 export const PantheonCardHelp: FC<MaterialHelpProps> = (props) => {
   const { item, itemIndex, closeDialog } = props
@@ -46,7 +41,7 @@ export const PantheonCardHelp: FC<MaterialHelpProps> = (props) => {
       <>
         <h2>{t('help.deck', { player: name })}</h2>
         <p>
-          <Trans defaults="help.deck.count" values={{
+          <Trans i18nKey="help.deck.count" values={{
             player: name,
             number: rules.material(MaterialType.PantheonCard).location(LocationType.PantheonDeck).player(item.location.player).length
           }}/>
@@ -105,7 +100,7 @@ export const PantheonCardHelp: FC<MaterialHelpProps> = (props) => {
       )}
       <p>
         <Trans
-          defaults="card.power"
+          i18nKey="card.power"
           values={{
             power: power
           }}
@@ -124,111 +119,112 @@ const getCardEffect = (t: TFunction, game: MaterialGame, index: number) => {
     case PantheonCard.Helios:
       return (
         <PlayEffect>
-          <Trans defaults="card.solhelios"/>
+          <Trans i18nKey="card.solhelios"/>
         </PlayEffect>
       )
     case PantheonCard.Siegfried:
     case PantheonCard.Heracles:
       return (
         <PlayEffect>
-          <Trans defaults="card.siegfriedheracles"/>
+          <Trans i18nKey="card.siegfriedheracles"/>
         </PlayEffect>
       )
     case PantheonCard.Ull:
     case PantheonCard.Artemis:
       return (
         <PlayEffect>
-          <Trans defaults="card.ullartemis"/>
+          <Trans i18nKey="card.ullartemis"/>
         </PlayEffect>
       )
     case PantheonCard.Frigg:
     case PantheonCard.Hera:
       return (
         <PlayEffect>
-          <Trans defaults="card.frigghera"/>
+          <Trans i18nKey="card.frigghera"/>
         </PlayEffect>
       )
     case PantheonCard.Thor:
     case PantheonCard.Ares:
       return (
         <PlayEffect>
-          <Trans defaults="card.thorares"/>
+          <Trans i18nKey="card.thorares"/>
         </PlayEffect>
       )
     case PantheonCard.Freyja:
     case PantheonCard.Aphrodite:
       return (
         <PlayEffect>
-          <Trans defaults="card.freyjaaphrodite"/>
+          <Trans i18nKey="card.freyjaaphrodite"/>
         </PlayEffect>
       )
     case PantheonCard.Hela:
     case PantheonCard.Hades:
       return (
         <PlayEffect>
-          <Trans defaults="card.helahades"/>
+          <Trans i18nKey="card.helahades"/>
         </PlayEffect>
       )
     case PantheonCard.Tyr:
     case PantheonCard.Athena:
       return (
         <AfterBattleEffect>
-          <Trans defaults="card.tyrathena"/>
+          <Trans i18nKey="card.tyrathena"/>
         </AfterBattleEffect>
       )
     case PantheonCard.Freyr:
     case PantheonCard.Demeter:
       return (
         <AfterBattleEffect>
-          <Trans defaults="card.freyrdemeter"/>
+          <Trans i18nKey="card.freyrdemeter"/>
         </AfterBattleEffect>
       )
     case PantheonCard.Loki:
     case PantheonCard.Hephaistos:
       return (
         <AfterBattleEffect>
-          <Trans defaults="card.lokiephaistos"/>
+          <Trans i18nKey="card.lokiephaistos"/>
         </AfterBattleEffect>
       )
     case PantheonCard.Eir:
     case PantheonCard.Asclepios:
       return (
         <AfterBattleEffect>
-          <Trans defaults="card.eirasclepios"/>
+          <Trans i18nKey="card.eirasclepios"/>
         </AfterBattleEffect>
       )
     case PantheonCard.Vali:
     case PantheonCard.Erinyes:
       return (
         <AfterBattleEffect>
-          <Trans defaults="card.valierinyes"/>
+          <Trans i18nKey="card.valierinyes"/>
         </AfterBattleEffect>
       )
     case PantheonCard.Balder:
-    case PantheonCard.Apollon:
+    case PantheonCard.Apollon: {
       const otherAllegiance = pantheons.find((p) => rule?.characteristics.allegiance === rule?.allegiance ? p !== rule?.allegiance : p === rule?.allegiance)
       return (
         <EndEffect>
-          <Trans defaults="card.balderapollon" values={{
+          <Trans i18nKey="card.balderapollon" values={{
             card: t(`card.${rule?.item.id.front}`),
             cardAllegiance: t(`player.${rule?.characteristics.allegiance}`),
             otherAllegiance: t(`pantheon.${otherAllegiance}`)
           }}/>
         </EndEffect>
       )
+    }
     case PantheonCard.Njord:
     case PantheonCard.Poseidon:
-      return <Trans defaults="card.njordposeidon" values={{ weakness: t(`card.${rule?.weaknessId}`) }}/>
+      return <Trans i18nKey="card.njordposeidon" values={{ weakness: t(`card.${rule?.weaknessId}`) }}/>
     default:
       return ''
   }
 }
 
-const PlayEffect: FC = (props) => {
+const PlayEffect: FC<PropsWithChildren> = (props) => {
   return (
     <>
       <p css={underlineCss}>
-        <Trans defaults="card.play.effect" components={IconsMini}/>
+        <Trans i18nKey="card.play.effect" components={IconsMini}/>
       </p>
       <p>
         {props.children}
@@ -237,11 +233,11 @@ const PlayEffect: FC = (props) => {
   )
 }
 
-const AfterBattleEffect: FC = (props) => {
+const AfterBattleEffect: FC<PropsWithChildren> = (props) => {
   return (
     <>
       <p css={underlineCss}>
-        <Trans defaults="card.after-battle.effect" components={IconsMini}/>
+        <Trans i18nKey="card.after-battle.effect" components={IconsMini}/>
       </p>
       <p>
         {props.children}
@@ -250,34 +246,17 @@ const AfterBattleEffect: FC = (props) => {
   )
 }
 
-const EndEffect: FC = (props) => {
+const EndEffect: FC<PropsWithChildren> = (props) => {
   return (
     <>
       <p css={underlineCss}>
-        <Trans defaults="card.end.effect" components={IconsMini}/>
+        <Trans i18nKey="card.end.effect" components={IconsMini}/>
       </p>
       <p>
         {props.children}
       </p>
     </>
   )
-}
-
-
-export const alignIcon = css`
-    height: 1.5em;
-    position: relative;
-    border-radius: 0.1em;
-    top: 0.4em;
-    margin-top: -0.3em;
-`
-
-export const IconsMini = {
-  'play': <Picture css={alignIcon} src={PlayEffectIcon}/>,
-  'afterbattle': <Picture css={alignIcon} src={AfterBattleEffectIcon}/>,
-  'end': <Picture css={alignIcon} src={EndEffectIcon}/>,
-  'shattered': <Picture css={alignIcon} src={shatteredShieldTokenDescription.image}/>,
-  'power': <Picture css={alignIcon} src={powerTokenDescription.image}/>
 }
 
 const underlineCss = css`

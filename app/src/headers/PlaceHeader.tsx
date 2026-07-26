@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
 import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
 import { MythicArenaRules } from '@gamepark/mythic-arena/MythicArenaRules'
@@ -18,24 +17,24 @@ export const PlaceHeader = () => {
   if (me === activePlayer) {
     if (!secondChance) {
       return (
-        <Trans defaults="header.place-discard">
+        <Trans i18nKey="header.place-discard">
           <PlayMoveButton move={discard} />
         </Trans>
       )
     }
     return (
-      <Trans defaults="header.place" />
+      <Trans i18nKey="header.place" />
     )
   }
 
   if (!secondChance) {
     return (
-      <Trans defaults="header.place-discard.player" values={{ player}} />
+      <Trans i18nKey="header.place-discard.player" values={{ player}} />
     )
   }
 
   return (
-    <Trans defaults="header.place.player" values={{ player}} />
+    <Trans i18nKey="header.place.player" values={{ player}} />
   )
 
 }

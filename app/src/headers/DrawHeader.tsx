@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { MythicArenaRules } from '@gamepark/mythic-arena/MythicArenaRules'
 import { usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { Trans } from 'react-i18next'
@@ -11,12 +10,12 @@ export const DrawHeader = () => {
 
   if (me === activePlayer) {
     return (
-      <Trans defaults="header.draw" />
+      <Trans i18nKey="header.draw" />
     )
   }
 
   return (
-    <Trans defaults="header.draw.player" values={{ player}} />
+    <Trans i18nKey="header.draw.player" values={{ player}} />
   )
 
 }

@@ -4,7 +4,6 @@ import { PantheonType } from './PantheonType'
 
 export type PantheonCardCharacteristics = {
   power: number
-  effect?: any
   allegiance?: PantheonType
   shieldFor: Direction[]
   fragilityFor: Direction[]

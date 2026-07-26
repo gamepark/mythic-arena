@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { faHand } from '@fortawesome/free-regular-svg-icons/faHand'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

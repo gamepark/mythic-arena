@@ -9,6 +9,10 @@ export class PantheonCardPowerLocator extends Locator {
 
   coordinates = { x: 0, y: 0, z: 0 }
 
+  getPositionDependencies(location: Location, context: MaterialContext) {
+    return this.countItems(location, context)
+  }
+
   getPositionOnParent(location: Location, context: MaterialContext) {
     if (!isItemContext(context)) return super.getPositionOnParent(location, context)
     const count = this.countItems(location, context)

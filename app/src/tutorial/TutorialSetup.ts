@@ -1,6 +1,6 @@
 import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
 import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
-import { PantheonCard } from '@gamepark/mythic-arena/material/PantheonCard'
+import { PantheonCard, PantheonCardId } from '@gamepark/mythic-arena/material/PantheonCard'
 import { PantheonType } from '@gamepark/mythic-arena/material/PantheonType'
 import { MythicArenaSetup } from '@gamepark/mythic-arena/MythicArenaSetup'
 
@@ -18,7 +18,7 @@ export class TutorialSetup extends MythicArenaSetup {
     const cards = player === PantheonType.Greek ? myCards : opponentCards
     cards.forEach((card) =>
       this.getDeck(player)
-        .id(({front}: any) => front === card)
+        .id(({ front }: PantheonCardId) => front === card)
         .moveItem({
           type: LocationType.PantheonDeck,
           player

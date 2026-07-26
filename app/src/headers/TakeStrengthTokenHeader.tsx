@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
 import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
 import { MythicArenaRules } from '@gamepark/mythic-arena/MythicArenaRules'
@@ -21,7 +20,7 @@ export const TakeStrengthTokenHeader = () => {
 
   if (me === activePlayer) {
     return (
-      <Trans defaults="header.take-strength" values={{ count: rules.remind(Memory.StrengthToken)}} components={{
+      <Trans i18nKey="header.take-strength" values={{ count: rules.remind(Memory.StrengthToken)}} components={{
         power: <TakePower move={takePower} />,
         shattered: <TakeShattered move={takeShattered} />
       }}>
@@ -31,7 +30,7 @@ export const TakeStrengthTokenHeader = () => {
   }
 
   return (
-    <Trans defaults="header.take-strength.player" values={{ player, count: rules.remind(Memory.StrengthToken) }}/>
+    <Trans i18nKey="header.take-strength.player" values={{ player, count: rules.remind(Memory.StrengthToken) }}/>
   )
 }
 

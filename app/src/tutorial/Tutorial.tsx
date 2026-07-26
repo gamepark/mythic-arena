@@ -1,15 +1,14 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
 import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
-import { PantheonCard } from '@gamepark/mythic-arena/material/PantheonCard'
+import { PantheonCard, PantheonCardId } from '@gamepark/mythic-arena/material/PantheonCard'
 import { PantheonType } from '@gamepark/mythic-arena/material/PantheonType'
 import { RuleId } from '@gamepark/mythic-arena/rules/RuleId'
 import { MaterialTutorial, PlayMoveButton, TutorialStep } from '@gamepark/react-game'
 import { isMoveItemType, isStartPlayerTurn, isStartRule, MaterialMoveBuilder } from '@gamepark/rules-api'
 import { Trans } from 'react-i18next'
 import { gloryDescription } from '../material/GloryDescription'
-import { IconsMini } from '../material/help/PantheonCardHelp'
+import { IconsMini } from '../material/help/IconsMini'
 import { me, opponent, TutorialSetup } from './TutorialSetup'
 import startRule = MaterialMoveBuilder.startRule
 
@@ -39,17 +38,17 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
   steps: TutorialStep[] = [
     {
       popup: {
-        text: () => <Trans defaults="tuto.welcome" components={BaseComponents}/>
+        text: () => <Trans i18nKey="tuto.welcome" components={BaseComponents}/>
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.pantheon" components={BaseComponents}/>
+        text: () => <Trans i18nKey="tuto.pantheon" components={BaseComponents}/>
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.glory" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.glory" components={BaseComponents}/>,
         position: { y: 15 }
       },
       focus: () => ({
@@ -60,7 +59,7 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.deck" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.deck" components={BaseComponents}/>,
         position: { x: 20 }
       },
       focus: (game) => ({
@@ -75,7 +74,7 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.draw" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.draw" components={BaseComponents}/>,
         position: { x: 20 }
       },
       focus: (game) => ({
@@ -89,7 +88,7 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.asclepios" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.asclepios" components={BaseComponents}/>,
         position: { x: 20, y: 20 }
       },
       focus: (game) => ({
@@ -110,7 +109,7 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.asclepios.effect" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.asclepios.effect" components={BaseComponents}/>,
         position: { y: 23 },
         size: { width: 80 }
       },
@@ -137,7 +136,7 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.opponent" components={BaseComponents}/>
+        text: () => <Trans i18nKey="tuto.opponent" components={BaseComponents}/>
       },
       move: {
         interrupt: (move) => isStartRule(move) && move.id === RuleId.PlaceCard
@@ -145,7 +144,7 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.adjacent" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.adjacent" components={BaseComponents}/>,
         position: { x: -10, y: 20 }
       },
       focus: (game) => ({
@@ -169,12 +168,12 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.siegfried" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.siegfried" components={BaseComponents}/>,
         position: { y: 22 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.PantheonCard).location(LocationType.Battlefield).id(({ front }: any) => front === PantheonCard.Siegfried)
+          this.material(game, MaterialType.PantheonCard).location(LocationType.Battlefield).id(({ front }: PantheonCardId) => front === PantheonCard.Siegfried)
         ],
         margin: {
           bottom: 7
@@ -183,7 +182,7 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.siegfried.effect" components={BaseComponents}/>
+        text: () => <Trans i18nKey="tuto.siegfried.effect" components={BaseComponents}/>
       },
       focus: (game) => ({
         materials: [
@@ -201,7 +200,7 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.hera" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.hera" components={BaseComponents}/>,
         position: { x: 20 }
       },
       focus: (game) => ({
@@ -215,7 +214,7 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.hera.discard" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.hera.discard" components={BaseComponents}/>,
         position: { x: 25 }
       },
       focus: (game) => ({
@@ -232,7 +231,7 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.discard" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.discard" components={BaseComponents}/>,
         position: { x: 25 }
       },
       focus: (game) => ({
@@ -246,12 +245,12 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.shields" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.shields" components={BaseComponents}/>,
         position: { y: 22 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.PantheonCard).location(LocationType.Battlefield).id(({ front }: any) => front === PantheonCard.Siegfried)
+          this.material(game, MaterialType.PantheonCard).location(LocationType.Battlefield).id(({ front }: PantheonCardId) => front === PantheonCard.Siegfried)
         ],
         margin: {
           bottom: 12,
@@ -261,12 +260,12 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.shields.block" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.shields.block" components={BaseComponents}/>,
         position: { y: 22 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.PantheonCard).location(LocationType.Battlefield).id(({ front }: any) => front === PantheonCard.Siegfried)
+          this.material(game, MaterialType.PantheonCard).location(LocationType.Battlefield).id(({ front }: PantheonCardId) => front === PantheonCard.Siegfried)
         ],
         margin: {
           bottom: 12,
@@ -276,7 +275,7 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.shattered" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.shattered" components={BaseComponents}/>,
       },
       focus: (game) => ({
         materials: [
@@ -288,13 +287,13 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.place.dionysos" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.place.dionysos" components={BaseComponents}/>,
         position: { y: 22 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.PantheonCard).id(({ front }: any) => front === PantheonCard.Siegfried),
-          this.material(game, MaterialType.PantheonCard).id(({ front }: any) => front === PantheonCard.Dionysos)
+          this.material(game, MaterialType.PantheonCard).id(({ front }: PantheonCardId) => front === PantheonCard.Siegfried),
+          this.material(game, MaterialType.PantheonCard).id(({ front }: PantheonCardId) => front === PantheonCard.Dionysos)
         ],
         locations: [
           this.location(LocationType.Battlefield).x(-1).y(-1).location
@@ -310,12 +309,12 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.dionysos" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.dionysos" components={BaseComponents}/>,
         position: { y: 20 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.PantheonCard).id(({ front }: any) => front === PantheonCard.Siegfried),
+          this.material(game, MaterialType.PantheonCard).id(({ front }: PantheonCardId) => front === PantheonCard.Siegfried),
           this.material(game, MaterialType.ShatteredShield).location(LocationType.PlayerShatteredShield).player(me)
         ],
         margin: {
@@ -326,7 +325,7 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
       move: {
         filter: (move, game) =>
           isMoveItemType(MaterialType.ShatteredShield)(move)
-          && move.location.parent === this.material(game, MaterialType.PantheonCard).id(({ front }: any) => front === PantheonCard.Siegfried).getIndex()
+          && move.location.parent === this.material(game, MaterialType.PantheonCard).id(({ front }: PantheonCardId) => front === PantheonCard.Siegfried).getIndex()
       }
     },
     {
@@ -336,7 +335,7 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.opponent.discard" components={BaseComponents}/>
+        text: () => <Trans i18nKey="tuto.opponent.discard" components={BaseComponents}/>
       }
     },
     {
@@ -354,14 +353,14 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.nerthus" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.nerthus" components={BaseComponents}/>,
         position: { y: 23 }
       },
       focus: (game) => {
-        const dionysos = this.material(game, MaterialType.PantheonCard).id(({ front }: any) => front === PantheonCard.Dionysos)
+        const dionysos = this.material(game, MaterialType.PantheonCard).id(({ front }: PantheonCardId) => front === PantheonCard.Dionysos)
         return ({
           materials: [
-            this.material(game, MaterialType.PantheonCard).id(({ front }: any) => front === PantheonCard.Nerthus),
+            this.material(game, MaterialType.PantheonCard).id(({ front }: PantheonCardId) => front === PantheonCard.Nerthus),
             dionysos,
             this.material(game, MaterialType.AllegianceToken).location(LocationType.PantheonCardAllegiance).parent(dionysos.getIndex())
           ],
@@ -374,13 +373,13 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.fragility" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.fragility" components={BaseComponents}/>,
         position: { y: 21 }
       },
       focus: (game) =>
         ({
           materials: [
-            this.material(game, MaterialType.PantheonCard).id(({ front }: any) => front === PantheonCard.Nerthus)
+            this.material(game, MaterialType.PantheonCard).id(({ front }: PantheonCardId) => front === PantheonCard.Nerthus)
           ],
           margin: {
             bottom: 10,
@@ -391,7 +390,7 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.aphrodite" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.aphrodite" components={BaseComponents}/>,
         position: { x: 25 }
       },
       focus: (game) => ({
@@ -405,13 +404,13 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.aphrodite.fragility" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.aphrodite.fragility" components={BaseComponents}/>,
         position: { x: 20, y: 20 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.PantheonCard).id(({ front }: any) => front === PantheonCard.Aphrodite),
-          this.material(game, MaterialType.PantheonCard).id(({ front }: any) => front === PantheonCard.Nerthus)
+          this.material(game, MaterialType.PantheonCard).id(({ front }: PantheonCardId) => front === PantheonCard.Aphrodite),
+          this.material(game, MaterialType.PantheonCard).id(({ front }: PantheonCardId) => front === PantheonCard.Nerthus)
         ],
         locations: [
           this.location(LocationType.Battlefield).x(-2).y(0).location
@@ -427,14 +426,14 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.aphrodite.power" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.aphrodite.power" components={BaseComponents}/>,
         position: { y: 20 }
       },
       focus: (game) => {
-        const asclepios = this.material(game, MaterialType.PantheonCard).id(({ front }: any) => front === PantheonCard.Asclepios)
+        const asclepios = this.material(game, MaterialType.PantheonCard).id(({ front }: PantheonCardId) => front === PantheonCard.Asclepios)
         return ({
           materials: [
-            this.material(game, MaterialType.PantheonCard).id(({ front }: any) => front === PantheonCard.Aphrodite),
+            this.material(game, MaterialType.PantheonCard).id(({ front }: PantheonCardId) => front === PantheonCard.Aphrodite),
             asclepios,
             this.material(game, MaterialType.AllegianceToken).location((l) => l.type === LocationType.PantheonCardAllegiance && l.parent === asclepios.getIndex())
           ],
@@ -448,14 +447,14 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
         filter: (move, game) => {
           return isMoveItemType(MaterialType.AllegianceToken)(move)
             && move.location.player === opponent
-            && game.items[MaterialType.AllegianceToken]![move.itemIndex].location.parent === this.material(game, MaterialType.PantheonCard).id(({ front }: any) => front === PantheonCard.Asclepios).getIndex()
+            && game.items[MaterialType.AllegianceToken]![move.itemIndex].location.parent === this.material(game, MaterialType.PantheonCard).id(({ front }: PantheonCardId) => front === PantheonCard.Asclepios).getIndex()
         }
       }
     },
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.battle" components={{
+          <Trans i18nKey="tuto.battle" components={{
             ...BaseComponents,
             battle: <PlayMoveButton move={startRule(RuleId.BattleResolution)} />
           }} />
@@ -467,12 +466,12 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.alignement" components={BaseComponents}/>,
+        text: () => <Trans i18nKey="tuto.alignement" components={BaseComponents}/>,
         size: { width: 100 },
         position: { y: 20 }
       },
       focus: (game) => {
-        const nerthus = this.material(game, MaterialType.PantheonCard).id(({ front }: any) => front === PantheonCard.Nerthus)
+        const nerthus = this.material(game, MaterialType.PantheonCard).id(({ front }: PantheonCardId) => front === PantheonCard.Nerthus)
 
         return ({
           materials: [
@@ -488,22 +487,22 @@ export class Tutorial extends MaterialTutorial<PantheonType, MaterialType, Locat
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.battlefield" components={BaseComponents}/>
+        text: () => <Trans i18nKey="tuto.battlefield" components={BaseComponents}/>
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.end" components={BaseComponents}/>
+        text: () => <Trans i18nKey="tuto.end" components={BaseComponents}/>
       }
     },
     {
       popup: {
-        text: () => <span  css={css`line-height: 1.5em`}><Trans defaults="tuto.summary" components={BaseComponents}/> </span>
+        text: () => <span  css={css`line-height: 1.5em`}><Trans i18nKey="tuto.summary" components={BaseComponents}/> </span>
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.go" components={BaseComponents}/>
+        text: () => <Trans i18nKey="tuto.go" components={BaseComponents}/>
       }
     }
   ]

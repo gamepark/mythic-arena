@@ -1,4 +1,5 @@
 import { getEnumValues } from '@gamepark/rules-api'
+import { PantheonType } from './PantheonType'
 
 export enum PantheonCard {
 
@@ -39,6 +40,11 @@ export enum PantheonCard {
   Odin,
   Thor,
   Sol,
+}
+
+export type PantheonCardId = {
+  front: PantheonCard
+  back: PantheonType
 }
 
 export const greekCards = getEnumValues(PantheonCard).filter((c) => c < PantheonCard.Tyr)

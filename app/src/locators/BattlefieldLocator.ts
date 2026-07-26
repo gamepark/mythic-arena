@@ -17,6 +17,10 @@ class BattlefieldLocator extends Locator {
 
   }
 
+  getPositionDependencies(_location: Location, context: MaterialContext) {
+    return new BattlefieldHelper(context.rules.game).innerSquareBoundaries
+  }
+
   getCoordinates(location: Location, _context: MaterialContext) {
     const boundaries = new BattlefieldHelper(_context.rules.game).innerSquareBoundaries
     const { x, y } = { x: 0, y: 0 }

@@ -9,6 +9,7 @@ export class MajorityGloryDescription extends TokenDescription {
     [PantheonType.Norse]: NorseGlory,
     [PantheonType.Greek]: GreekGlory
   }
+  transparency = true
   height = 4.42
   width = 5.72
 

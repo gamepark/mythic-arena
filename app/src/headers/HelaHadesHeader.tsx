@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
 import { PantheonCard } from '@gamepark/mythic-arena/material/PantheonCard'
 import { PantheonType } from '@gamepark/mythic-arena/material/PantheonType'
@@ -19,7 +18,7 @@ export const HelaHadesHeader = () => {
   if (me === activePlayer) {
     return (
       <Trans
-        defaults="header.helahades"
+        i18nKey="header.helahades"
         values={{ card: t(`card.${card}`) }}
         components={{
           openDiscard: <PlayMoveButton move={displayLocationHelp({
@@ -31,7 +30,7 @@ export const HelaHadesHeader = () => {
   }
 
   return (
-    <Trans defaults="header.helahades.player" values={{ player, card: t(`card.${card}`) }}/>
+    <Trans i18nKey="header.helahades.player" values={{ player, card: t(`card.${card}`) }}/>
   )
 
 }

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
 import { MythicArenaRules } from '@gamepark/mythic-arena/MythicArenaRules'
 import { PlayMoveButton, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
@@ -15,7 +14,7 @@ export const HeraclesSiegfriedHeader = () => {
   if (me === activePlayer) {
     return (
       <Trans
-        defaults="header.heraclessiegfried"
+        i18nKey="header.heraclessiegfried"
         components={{
           openDiscard: <PlayMoveButton move={displayLocationHelp({ type: LocationType.PantheonDiscard, player: me }) } local/>
         }}
@@ -25,7 +24,7 @@ export const HeraclesSiegfriedHeader = () => {
   }
 
   return (
-    <Trans defaults="header.heraclessiegfried.player" values={{ player }}/>
+    <Trans i18nKey="header.heraclessiegfried.player" values={{ player }}/>
   )
 
 }

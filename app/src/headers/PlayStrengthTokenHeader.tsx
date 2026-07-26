@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/mythic-arena/material/LocationType'
 import { MaterialType } from '@gamepark/mythic-arena/material/MaterialType'
 import { MythicArenaRules } from '@gamepark/mythic-arena/MythicArenaRules'
@@ -21,7 +20,7 @@ export const PlayStrengthTokenHeader = () => {
     if (!hasToken) {
       return (
         <Trans
-          defaults="header.pass"
+          i18nKey="header.pass"
           components={{
             pass: <PlayMoveButton move={pass} auto={5} />
           }}
@@ -30,7 +29,7 @@ export const PlayStrengthTokenHeader = () => {
     }
     return (
       <Trans
-        defaults="header.play-strength"
+        i18nKey="header.play-strength"
         components={{
           pass: <PlayMoveButton move={pass} />
         }}
@@ -41,12 +40,12 @@ export const PlayStrengthTokenHeader = () => {
 
   if (!hasToken) {
     return (
-      <Trans defaults="header.pass.player" values={{ player }} />
+      <Trans i18nKey="header.pass.player" values={{ player }} />
     )
   }
 
   return (
-    <Trans defaults="header.play-strength.player" values={{ player }} />
+    <Trans i18nKey="header.play-strength.player" values={{ player }} />
   )
 
 }
