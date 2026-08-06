@@ -1,3 +1,3 @@
 export { MythicArenaRules } from './MythicArenaRules'
-export { MythicArenaOptionsSpec } from './MythicArenaOptions'
+export { MythicArenaOptionsSpecV2 } from './MythicArenaOptions'
 export { MythicArenaSetup } from './MythicArenaSetup'
