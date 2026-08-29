@@ -6,9 +6,8 @@ import { isDeleteItemType, MaterialMove } from '@gamepark/rules-api'
 export const gameAnimations = new MaterialGameAnimations()
 
 gameAnimations
-  .when()
-  .move((move: MaterialMove, context: MaterialAnimationContext) =>
+  .configure((move: MaterialMove, context: MaterialAnimationContext) =>
     isDeleteItemType(MaterialType.PantheonCard)(move) &&
     [PantheonCard.Hela, PantheonCard.Hades].includes(context.rules.game.items[move.itemType]![move.itemIndex].id?.front)
   )
-  .none()
+  .skip()
