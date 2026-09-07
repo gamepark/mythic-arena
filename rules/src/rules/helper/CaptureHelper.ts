@@ -20,7 +20,7 @@ export class CaptureHelper extends PlayerTurnRule {
       moves.push(existingToken.moveItem({
         type: LocationType.AllegianceStock,
         player: existingToken.getItem()!.id
-      }))
+      }, 1))
     }
 
     if (existingToken.length && existingToken.getItem()!.id !== this.player) return moves
@@ -34,7 +34,7 @@ export class CaptureHelper extends PlayerTurnRule {
         .moveItem({
           type: LocationType.PantheonCardAllegiance,
           parent: card.getIndex()
-        })
+        }, 1)
     )
 
     return moves
