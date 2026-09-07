@@ -1,6 +1,6 @@
 {
   "name": "@gamepark/mythic-arena",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "The rules of Mythic Arena adapted for Game Park",
   "sideEffects": false,
   "type": "module",
