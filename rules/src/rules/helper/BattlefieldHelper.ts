@@ -2,7 +2,6 @@ import { Location, Material, MaterialItem, MaterialRulesPart } from '@gamepark/r
 import { uniqBy } from 'es-toolkit'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
-import { PantheonCard, PantheonCardId } from '../../material/PantheonCard'
 import { PantheonType } from '../../material/PantheonType'
 import { getCardRule } from '../character/card.utils'
 import { Memory } from '../Memory'
@@ -26,45 +25,31 @@ export class BattlefieldHelper extends MaterialRulesPart {
       availableSpaces.push({ type: LocationType.Battlefield, x: 0, y: 0, z: 0 })
     }
 
-    const sol = this.getPantheonCard(PantheonCard.Sol)
-    const helios = this.getPantheonCard(PantheonCard.Helios)
     playedCards.forEach(playedCard => {
       const coordinates = { x: playedCard.location.x, y: playedCard.location.y }
       const left = { x: playedCard.location.x! - 1, y: playedCard.location.y! }
       if (!playedCards.find(item => isAnyCardToTheLeft(item, coordinates)) && (boundaries.xMax - left.x < maxSize)) {
-        if ((boundaries.yMax - boundaries.yMin) < maxSize || ((sol?.location.y !== left.y) && helios?.location.x !== left.y)) {
-          availableSpaces.push({ type: LocationType.Battlefield, x: left.x, y: left.y, z: 0 })
-        }
+        availableSpaces.push({ type: LocationType.Battlefield, x: left.x, y: left.y, z: 0 })
       }
 
       const right = { x: playedCard.location.x! + 1, y: playedCard.location.y! }
       if (!playedCards.find(item => isAnyCardToTheRight(item, coordinates)) && (right.x - boundaries.xMin < maxSize)) {
-        if ((boundaries.yMax - boundaries.yMin) < maxSize || ((sol?.location.y !== right.y) && helios?.location.x !== right.y)) {
-          availableSpaces.push({ type: LocationType.Battlefield, x: right.x, y: right.y, z: 0 })
-        }
+        availableSpaces.push({ type: LocationType.Battlefield, x: right.x, y: right.y, z: 0 })
       }
 
       const below = { x: playedCard.location.x!, y: playedCard.location.y! + 1 }
-      if (!playedCards.find(item => isAnyCardBelow(item, coordinates)) && (below.y - boundaries.yMin < maxSize)/* && (below.x < boundaries.xMin? (boundaries.xMax - below.x < this.maxSize): (below.x - boundaries.xMin < this.maxSize))*/) {
-        if ((boundaries.xMax - boundaries.xMin) < maxSize || ((sol?.location.x !== below.x) && helios?.location.x !== below.x)) {
-          availableSpaces.push({ type: LocationType.Battlefield, x: below.x, y: below.y, z: 0 })
-        }
+      if (!playedCards.find(item => isAnyCardBelow(item, coordinates)) && (below.y - boundaries.yMin < maxSize)) {
+        availableSpaces.push({ type: LocationType.Battlefield, x: below.x, y: below.y, z: 0 })
       }
 
       const above = { x: playedCard.location.x!, y: playedCard.location.y! - 1 }
-      if (!playedCards.find(item => isAnyCardAbove(item, coordinates)) && (boundaries.yMax - above.y < maxSize)/* && (above.x < boundaries.xMin? (boundaries.xMax - above.x < this.maxSize): (above.x - boundaries.xMin < this.maxSize))*/) {
-        if ((boundaries.xMax - boundaries.xMin) < maxSize || ((sol?.location.x !== above.x) && helios?.location.x !== above.x)) {
-          availableSpaces.push({ type: LocationType.Battlefield, x: above.x, y: above.y, z: 0 })
-        }
+      if (!playedCards.find(item => isAnyCardAbove(item, coordinates)) && (boundaries.yMax - above.y < maxSize)) {
+        availableSpaces.push({ type: LocationType.Battlefield, x: above.x, y: above.y, z: 0 })
       }
     })
 
 
     return uniqBy(availableSpaces, (location) => JSON.stringify(location))
-  }
-
-  getPantheonCard(cardId: PantheonCard) {
-    return this.battlefield.id((id: PantheonCardId) => id.front === cardId).getItem()
   }
 
   get innerSquareBoundaries() {
